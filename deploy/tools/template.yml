@@ -1,0 +1,32 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  # cache:
+    # blobdescriptor: inmemory
+  # filesystem:
+  #   rootdirectory: /var/lib/registry
+  s3:
+    accesskey: fooAccessKey
+    secretkey: fooSecretKey
+    region: fooRegion
+    regionendpoint: http://localhost:8000
+    bucket: registry
+  # tag:
+  #   concurrencylimit: 8
+http:
+  addr: :5000
+  debug:
+    addr: localhost:5001
+  headers:
+    X-Content-Type-Options: [nosniff]
+# auth:
+#   htpasswd:
+#     realm: basic-realm
+#     path: /etc/registry
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3

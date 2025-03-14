@@ -1,0 +1,7 @@
+main
+read
+file.txt
+data/
+logs/
+configs/
+__pycache__
