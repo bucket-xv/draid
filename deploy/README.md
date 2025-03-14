@@ -4,36 +4,40 @@ This folder is used to deploy a experimental draid on the cloudlab machines.
 
 ## Setup the Testbed
 
-1. Copy the manifest to manifest.xml and execute the following command:
+1. Make sure your current directory is `draid/`. Create empty config files first.
+
+```bash
+mkdir configs
+cd configs
+touch int_ip_addrs_cli.txt
+touch int_ip_addrs_server.txt
+touch ip_addrs_all.txt
+touch ceph.conf
+```
+
+Put all public ip addresses in `ip_addrs_all.txt` for eay setup, put all private ip addresses that composes a Ceph cluster in order in `int_ip_addrs_server.txt`, and put all private ip addresses that you want to access the Ceph cluster in `int_ip_addrs_cli.txt`. Config `ceph.conf`.
+
+2. Upload the docker image to remote:
+```bash
+docker pull docker.io/bucketxv/ceph:centos
+docker save -o /tmp/ceph.zip docker.io/bucketxv/ceph:centos
+export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
+scp /tmp/ceph.zip root@$server_ip:/tmp/ceph.zip
+ssh root@$server_ip "docker load -i /tmp/ceph.zip"
+```
+
+3. Copy the manifest to manifest.xml and execute the following command:
 
 ```Bash
-cd deploy-aliyun
-python parse_manifest.py manifest.xml 5 # The figure denotes the number of ceph cluster servers.
-git commit -a -m "Change ip"
-git push
+cd deploy
 ./setup_all_nodes.sh root
 ```
 
-2. ssh to moniter server (First server in `ip_addrs_all.txt`) and execute the following command:
-
-```Bash
-tmux
-
-ssh-keyscan github.com >> ~/.ssh/known_hosts
-git clone --recurse-submodules git@github.com:bucket-xv/draid.git
-cd draid/deploy
-```
-
-3. Use `lsblk` and `fdisk` to find or create the disk to use for the testbed
-
-```Bash
-lsblk
-sudo fdisk /dev/sd*
-```
 
 4. Run the script to install draid. You may need to enter `Yes` once.
 
 ```Bash
+tmux
 # ./deploy_source.sh /dev/sda4 4 /dev/sdb
 ./deploy_source.sh /dev/sd* 4 /dev/sd* # <the log disk> <the number of osd servers> <the osd disk>
 ```
