@@ -18,7 +18,7 @@ import warnings
 # sudo systemctl restart docker
 
 def main():
-    ip_file_path = os.path.join(os.path.dirname(__file__), '..', '..', 'configs', 'ip_addrs_all.txt')
+    ip_file_path = os.path.join(os.path.dirname(__file__), '..', '..', 'configs', 'int_ip_addrs_server.txt')
     with open(ip_file_path, 'r') as f:
         ip_addrs = f.readlines()
     ip_addrs = [ip.strip() for ip in ip_addrs]

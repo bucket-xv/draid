@@ -34,6 +34,7 @@ do
   ssh "$username@$line" "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
   ssh "$username@$line" "cd draid && git pull"
   scp -r ../configs $username@$line:~/draid/
+  ssh "$username@$line" "cd draid && python3 deploy/tools/add_registry.py" 
 done 10< $PROJ_DIR/configs/ip_addrs_all.txt
 
 echo "You are all set!"
