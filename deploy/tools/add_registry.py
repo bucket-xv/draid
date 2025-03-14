@@ -1,7 +1,7 @@
 import json
 import os
 import warnings
-
+import time
 # #!/bin/bash
 
 # registry=$(tail -n 1 ~/draid/deploy/int_ip_addrs_server.txt)
@@ -41,6 +41,7 @@ def main():
     print(f'{docker_config_path} updated AS:')
     print(docker_config)
 
+    time.sleep(1)
     print('Restarting docker service')
     os.system('sudo systemctl restart docker')
 

@@ -49,7 +49,7 @@ ssh root@$server_ip "docker push $registry_ip:5000/ceph:centos"
 ```Bash
 tmux
 # ./deploy_source.sh /dev/sda4 4 /dev/sdb
-./deploy_source.sh /dev/sd* 4 /dev/sd* # <the log disk> <the number of osd servers> <the osd disk>
+./deploy_source.sh 3 /dev/sd* # <the log disk> <the number of osd servers> <the osd disk>
 ```
 
 
