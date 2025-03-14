@@ -2,8 +2,6 @@ import yaml
 import os
 import json
 
-
-
 # bucket name
 bucket = 'registry'
 
