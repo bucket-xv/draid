@@ -2,6 +2,8 @@
 
 # This script is used to configure the client nodes
 
+export PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
+
 release=0
 while getopts "f" opt; do
   case $opt in
@@ -32,13 +34,13 @@ do
     
     # Install librados
     ssh $cli_ip "sudo apt update -y && ssh-keyscan github.com >> ~/.ssh/known_hosts"
-    ssh $cli_ip "git clone git@github.com:bucket-xv/draid; cd draid && git pull"
+    ssh $cli_ip "git clone git@github.com:bucket-xv/draid; cd $PROJ_DIR && git pull"
     if [ $release -eq 1 ]; then
-        ssh $cli_ip "cd draid/deploy/tools && ./install_release.sh"
+        ssh $cli_ip "cd $PROJ_DIR/deploy/tools && ./install_release.sh"
     else
         echo "Without release flag"
-        ssh $cli_ip "cd draid/deploy/tools && ./install_source.sh"
+        ssh $cli_ip "cd $PROJ_DIR/deploy/tools && ./install_source.sh"
     fi
     ssh $cli_ip "sudo apt install pip -y && pip install boto3"
 
-done 10< int_ip_addrs_cli.txt
+done 10< $PROJ_DIR/configs/int_ip_addrs_cli.txt
