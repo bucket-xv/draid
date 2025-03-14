@@ -15,12 +15,12 @@ scp_to_machine() {
 
   echo "scp manifests to $ip_addr"
   ssh -o StrictHostKeyChecking=no $username@$ip_addr "echo Hello!"
+  cat ~/.ssh/id_ed25519.pub | ssh $username@$ip_addr "sudo tee -a /root/.ssh/authorized_keys"
   # Sync the existing keys
-  scp ~/.ssh/id_ed25519 "$username@$ip_addr:~/.ssh/"
-  scp ~/.ssh/id_ed25519.pub "$username@$ip_addr:~/.ssh/"
+  scp ~/.ssh/id_ed25519_tmp "$username@$ip_addr:~/.ssh/id_ed25519"
+  scp ~/.ssh/id_ed25519_tmp.pub "$username@$ip_addr:~/.ssh/id_ed25519.pub"
   # Add root key pairs
   ssh $username@$ip_addr "sudo cp ~/.ssh/id_ed25519 /root/.ssh/"
-  cat ~/.ssh/id_ed25519.pub | ssh $username@$ip_addr "sudo tee -a /root/.ssh/authorized_keys"
   ssh $username@$ip_addr "ssh-keyscan github.com >> ~/.ssh/known_hosts"
 }
 
@@ -29,7 +29,7 @@ while read -u10 -r line
 do
   scp_to_machine "$line"
   ssh "$username@$line" "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
-  ssh "$username@$line" "cd draid && git pull"
+  ssh "$username@$line" "cd draid && git pull && mkdir "
 done 10< ip_addrs_all.txt
 
 

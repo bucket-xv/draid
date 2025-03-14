@@ -7,11 +7,11 @@ This folder is used to deploy a experimental draid on the cloudlab machines.
 1. Copy the manifest to manifest.xml and execute the following command:
 
 ```Bash
-cd deploy
+cd deploy-aliyun
 python parse_manifest.py manifest.xml 5 # The figure denotes the number of ceph cluster servers.
 git commit -a -m "Change ip"
 git push
-./setup_all_nodes.sh BucketXv
+./setup_all_nodes.sh root
 ```
 
 2. ssh to moniter server (First server in `ip_addrs_all.txt`) and execute the following command:
