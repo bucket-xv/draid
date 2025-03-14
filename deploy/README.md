@@ -17,22 +17,32 @@ touch ceph.conf
 
 Put all public ip addresses in `ip_addrs_all.txt` for eay setup, put all private ip addresses that composes a Ceph cluster in order in `int_ip_addrs_server.txt`, and put all private ip addresses that you want to access the Ceph cluster in `int_ip_addrs_cli.txt`. Config `ceph.conf`.
 
-2. Upload the docker image to remote:
-```bash
-docker pull docker.io/bucketxv/ceph:centos
-docker save -o /tmp/ceph.zip docker.io/bucketxv/ceph:centos
-export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
-scp /tmp/ceph.zip root@$server_ip:/tmp/ceph.zip
-ssh root@$server_ip "docker load -i /tmp/ceph.zip"
-```
-
-3. Copy the manifest to manifest.xml and execute the following command:
+2. Copy the manifest to manifest.xml and execute the following command:
 
 ```Bash
 cd deploy
 ./setup_all_nodes.sh root
 ```
 
+3. Upload the docker image to remote:
+
+```bash
+docker pull registry:2
+docker save -o /tmp/registry.zip registry:2
+export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
+scp /tmp/registry.zip root@$server_ip:/tmp/registry.zip
+ssh root@$server_ip "docker load -i /tmp/registry.zip"
+ssh root@$server_ip "docker run -d -p 5000:5000 --restart=always --name registry registry:2"
+
+docker pull docker.io/bucketxv/ceph:centos
+docker save -o /tmp/ceph.zip docker.io/bucketxv/ceph:centos
+export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
+export registry_ip=$(head -n 1 configs/int_ip_addrs_server.txt)
+scp /tmp/ceph.zip root@$server_ip:/tmp/ceph.zip
+ssh root@$server_ip "docker load -i /tmp/ceph.zip"
+ssh root@$server_ip "docker tag docker.io/bucketxv/ceph:centos $registry_ip:5000/ceph:centos"
+ssh root@$server_ip "docker push $registry_ip:5000/ceph:centos"
+```
 
 4. Run the script to install draid. You may need to enter `Yes` once.
 

@@ -22,7 +22,6 @@ def main():
     with open(ip_file_path, 'r') as f:
         ip_addrs = f.readlines()
     ip_addrs = [ip.strip() for ip in ip_addrs]
-    print(ip_addrs)
 
     docker_config_path = '/etc/docker/daemon.json'
     if os.path.exists(docker_config_path):
@@ -39,8 +38,11 @@ def main():
     with open(docker_config_path, 'w') as f:
         json.dump(docker_config, f)
 
-    print(f'{docker_config_path} updated')
+    print(f'{docker_config_path} updated AS:')
     print(docker_config)
+
+    print('Restarting docker service')
+    os.system('sudo systemctl restart docker')
 
 if __name__ == '__main__':
     main()
