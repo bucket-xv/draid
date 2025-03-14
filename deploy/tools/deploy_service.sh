@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
+export PROJ_DIR=$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")
 # Check if a file name and a number of lines are provided
 if [ $# -lt 2 ]; then
   echo "Usage: $0 <number_of_osds> <device>"
