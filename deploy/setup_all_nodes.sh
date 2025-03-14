@@ -32,8 +32,8 @@ while read -u10 -r line
 do
   setup_keys "$line"
   ssh "$username@$line" "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
-  ssh "$username@$line" "cd draid && git pull && mkdir configs"
-  scp -r ../configs $username@$line:~/draid/configs
+  ssh "$username@$line" "cd draid && git pull"
+  scp -r ../configs $username@$line:~/draid/
 done 10< $PROJ_DIR/configs/ip_addrs_all.txt
 
 echo "You are all set!"

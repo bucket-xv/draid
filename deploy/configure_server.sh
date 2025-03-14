@@ -1,12 +1,11 @@
 # Copy the `id_ed25519` from user to root
-sudo cp ~/.ssh/id_ed25519 /root/.ssh/
+PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
 
 # Distribute ssh keys
 while read -r -u10 osd_ip
 do
     echo "Distribute keys to $osd_ip"
     ssh -o StrictHostKeyChecking=no $osd_ip "echo Hello!"
-    scp ~/.ssh/id_ed25519 "$osd_ip:~/.ssh/"
     sudo cat /etc/ceph/ceph.pub | ssh $osd_ip "sudo cat >> ~/.ssh/authorized_keys"
     sudo ssh -o StrictHostKeyChecking=no $osd_ip "echo Hello!"
     sudo ssh-copy-id -f -i /etc/ceph/ceph.pub root@$osd_ip

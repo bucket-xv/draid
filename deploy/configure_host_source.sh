@@ -14,6 +14,7 @@ tools/install_source.sh
 sudo apt install sysstat iftop -y
 
 # cephadm bootstrap
-host=$(head -n 1 $PROJ_DIR/configs/int_ip_addrs_server.txt) # Use the cluster network interface
-sudo cephadm --image docker.io/bucketxv/ceph:centos bootstrap --mon-ip $host --allow-fqdn-hostname -c ceph.conf
+cd $PROJ_DIR/configs
+host=$(head -n 1 int_ip_addrs_server.txt) # Use the cluster network interface
+sudo cephadm --image bucketxv/ceph:centos bootstrap --mon-ip $host --allow-fqdn-hostname -c ceph.conf
 # sudo ceph orch apply osd --all-available-devices
