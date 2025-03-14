@@ -8,7 +8,7 @@ stop_all() {
     while read -u10 -r ip
     do
         ssh "$username@$ip" "sudo pkill -f ./read"
-    done 10< ~/cephcluster/deploy/int_ip_addrs_cli.txt
+    done 10< ~/draid/deploy/int_ip_addrs_cli.txt
     echo "All processes stopped."
     exit 0
 }
@@ -34,15 +34,15 @@ trap 'stop_all $username' SIGINT
 
 # Define the program to execute on the remote servers
 if [ "$mode" == "rados" ]; then
-    PROGRAM="cd ~/cephcluster/test && sudo ./read"
+    PROGRAM="cd ~/draid/test && sudo ./read"
 elif [ "$mode" == "rgw" ]; then
-    PROGRAM="cd ~/cephcluster/test && python ./read.py"
+    PROGRAM="cd ~/draid/test && python ./read.py"
 else
     echo "Invalid mode. Exiting..."
     exit 1
 fi
 
-TRAFFIC_MONITOR="cd ~/cephcluster/exp/tools && sudo ./monitor_network.sh"
+TRAFFIC_MONITOR="cd ~/draid/exp/tools && sudo ./monitor_network.sh"
 
 # Create a directory for logs if it doesn't exist
 
@@ -54,16 +54,16 @@ rm -rf $LOG_DIR/*_err.log
 random_seed=0
 
 # REMOTE_TRAFFIC_CSV="/tmp/10.10.1.1_traffic.csv"
-# cd ~/cephcluster/exp/tools
+# cd ~/draid/exp/tools
 # sudo ./monitor_network.sh $interface 2>/dev/null >$REMOTE_TRAFFIC_CSV </dev/null &
-cd ~/cephcluster/exp
+cd ~/draid/exp
 # Setup traffic monitor on server nodes
 while read -u10 -r ip
 do
     # Start the traffic monitor
     REMOTE_TRAFFIC_CSV="/tmp/${ip}_traffic.csv"
     ssh "$username@$ip" "($TRAFFIC_MONITOR $interface) 2>/dev/null >$REMOTE_TRAFFIC_CSV </dev/null &"
-done 10< ~/cephcluster/deploy/int_ip_addrs_server.txt
+done 10< ~/draid/deploy/int_ip_addrs_server.txt
 
 
 # Read each IP address from the file
@@ -77,7 +77,7 @@ do
     ssh "$username@$ip" "($PROGRAM $file_num $file_size $num_threads $random_seed) >$REMOTE_OUT_LOG 2>$REMOTE_ERR_LOG </dev/null &"
     random_seed=$((random_seed + num_threads))
     # ssh "$username@$ip" "ps a"
-done 10< ~/cephcluster/deploy/int_ip_addrs_cli.txt
+done 10< ~/draid/deploy/int_ip_addrs_cli.txt
 
 echo "Execution started."
 
@@ -103,7 +103,7 @@ do
     ssh "$username@$ip" rm "$REMOTE_OUT_LOG" "$REMOTE_ERR_LOG"
 
     # ssh "$username@$ip" "sudo pkill -f $PROGRAM"
-done 10< ~/cephcluster/deploy/int_ip_addrs_cli.txt
+done 10< ~/draid/deploy/int_ip_addrs_cli.txt
 
 # Get the traffic logs from the server nodes and terminate the traffic monitor
 
@@ -115,6 +115,6 @@ do
     scp "$username@$ip:$REMOTE_TRAFFIC_CSV" "$LOG_DIR/${ip}_traffic.csv"
     ssh "$username@$ip" sudo pkill -f "./monitor_network.sh"
     ssh "$username@$ip" rm "$REMOTE_TRAFFIC_CSV"
-done 10< ~/cephcluster/deploy/int_ip_addrs_server.txt
+done 10< ~/draid/deploy/int_ip_addrs_server.txt
 
 echo "Execution and log retrieval completed."

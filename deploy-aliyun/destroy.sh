@@ -64,13 +64,13 @@ sudo cephadm rm-cluster --force --zap-osds --fsid $fsid
 
 while read -r -u10 osd_ip
 do
-    ssh $osd_ip "cd cephcluster && git pull"
-    ssh $osd_ip "cd cephcluster/deploy/tools && ./zap_osd.sh $fsid"
-    ssh $osd_ip "cd cephcluster/deploy/tools && ./clear_deb.sh"
+    ssh $osd_ip "cd draid && git pull"
+    ssh $osd_ip "cd draid/deploy/tools && ./zap_osd.sh $fsid"
+    ssh $osd_ip "cd draid/deploy/tools && ./clear_deb.sh"
 done 10< int_ip_addrs_server.txt
 
 while read -r -u10 osd_ip
 do
-    ssh $osd_ip "cd cephcluster && git pull"
-    ssh $osd_ip "cd cephcluster/deploy/tools && ./clear_deb.sh"
+    ssh $osd_ip "cd draid && git pull"
+    ssh $osd_ip "cd draid/deploy/tools && ./clear_deb.sh"
 done 10< int_ip_addrs_cli.txt

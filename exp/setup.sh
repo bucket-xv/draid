@@ -20,16 +20,16 @@ sudo ceph osd set-require-min-compat-client reef
 sudo ceph balancer mode read
 
 # Then create the pool
-cd ~/cephcluster/exp
+cd ~/draid/exp
 ./create_ecpool.sh $k $m
 # sudo ceph osd pool set default.rgw.buckets.data fast_read 1
 
 # Put the random data
-cd ~/cephcluster/test
+cd ~/draid/test
 if [ "$mode" == "rados" ]; then
     python gen_data.py 1 $file_size
     for i in $(seq 0 ${file_num}); do
-        sudo rados -p default.rgw.buckets.data put object$i ~/cephcluster/data/0.txt
+        sudo rados -p default.rgw.buckets.data put object$i ~/draid/data/0.txt
         echo "Put object$i"
     done
 elif [ "$mode" == "rgw" ]; then
@@ -37,19 +37,19 @@ elif [ "$mode" == "rgw" ]; then
     sudo ceph osd pool application enable default.rgw.buckets.data rgw
     sleep 1
     # Put the objects
-    ip=$(head -n 1 ~/cephcluster/deploy/int_ip_addrs_cli.txt)
+    ip=$(head -n 1 ~/draid/deploy/int_ip_addrs_cli.txt)
 
-    ssh $ip "cd ~/cephcluster/test && python gen_data.py 1 $file_size && python put_objects.py $file_num"
+    ssh $ip "cd ~/draid/test && python gen_data.py 1 $file_size && python put_objects.py $file_num"
 else
     echo "Invalid mode. Exiting..."
     exit 1
 fi
 
 # First limit the bandwidth of the monitor node
-cd ~/cephcluster/deploy
+cd ~/draid/deploy
 sip=$(head -n 1 int_ip_addrs_server.txt)
 git submodule update --recursive --init
-cd ~/cephcluster/exp 
+cd ~/draid/exp 
 ./change_bandwidth.sh $sip -c && ./change_bandwidth.sh $sip -l $bandwidth
 echo "Changed bandwidth of $sip to $bandwidth"
 
@@ -57,23 +57,23 @@ echo "Changed bandwidth of $sip to $bandwidth"
 # Then limit the bandwidth of server nodes
 while read -r -u10 ip && read -r -u11 bandwidth
 do
-    ssh $ip "git clone --recurse-submodules git@github.com:bucket-xv/cephcluster.git"
-    ssh $ip "cd cephcluster && git pull"
-    ssh $ip "cd cephcluster/exp && ./change_bandwidth.sh $ip -c && ./change_bandwidth.sh $ip -l $bandwidth"
+    ssh $ip "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
+    ssh $ip "cd draid && git pull"
+    ssh $ip "cd draid/exp && ./change_bandwidth.sh $ip -c && ./change_bandwidth.sh $ip -l $bandwidth"
     echo "Changed bandwidth of $ip to $bandwidth"
-done 10< ~/cephcluster/deploy/int_ip_addrs_server.txt 11< /tmp/bandwidth.txt
+done 10< ~/draid/deploy/int_ip_addrs_server.txt 11< /tmp/bandwidth.txt
 
 
 # Then compile the code on the client nodes
 while read -r -u10 ip
 do
-    ssh $ip "git clone --recurse-submodules git@github.com:bucket-xv/cephcluster.git"
-    ssh $ip "cd cephcluster && git pull"
-    ssh $ip "cd cephcluster/test && make clean && make"
-done 10< ~/cephcluster/deploy/int_ip_addrs_cli.txt
+    ssh $ip "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
+    ssh $ip "cd draid && git pull"
+    ssh $ip "cd draid/test && make clean && make"
+done 10< ~/draid/deploy/int_ip_addrs_cli.txt
 
 # Finally wait for the cluster to be ready
-cd ~/cephcluster/exp
+cd ~/draid/exp
 for i in {1..4}
 do
     sleep 3

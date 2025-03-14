@@ -18,5 +18,5 @@ git pull
 sudo dpkg -i *.deb
 sudo apt --fix-broken install -y
 
-cd ~/cephcluster/deploy
+cd ~/draid/deploy
 ./bootstrap_manual.sh

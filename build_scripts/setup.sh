@@ -42,4 +42,4 @@ sudo $pkt install tmux -y
 sudo $pkt install curl python3-routes -y
 ./install-deps.sh
 ./do_cmake.sh
-cd ~/cephcluster/build_scripts
+cd ~/draid/build_scripts

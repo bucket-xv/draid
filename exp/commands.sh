@@ -1,14 +1,14 @@
 # Show ceph cluster status
 sudo ceph balancer eval default.rgw.buckets.data
 sudo ceph pg ls-by-pool default.rgw.buckets.data
-sudo ceph pg ls-by-pool default.rgw.buckets.data | python ~/cephcluster/exp/tools/info.py
+sudo ceph pg ls-by-pool default.rgw.buckets.data | python ~/draid/exp/tools/info.py
 sudo ceph orch ps 
 sudo ceph device ls
 sudo ceph osd pool ls
 sudo rados df
 
 for i in $(seq 0 50); do
-    sudo rados -p default.rgw.buckets.data put object$i ~/cephcluster/data/0.txt
+    sudo rados -p default.rgw.buckets.data put object$i ~/draid/data/0.txt
     echo "Put object$i"
 done
 

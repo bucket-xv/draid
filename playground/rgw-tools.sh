@@ -19,9 +19,9 @@ sudo systemctl list-unit-files --type=service --all | grep 'ceph' | while read -
     sudo systemctl disable "$service_name"
 done
 
-mkdir -p ~/cephcluster/configs
-sudo radosgw-admin user create --uid=chenhao --display-name="Chenhao Xu" --email=xv_chen_hao@163.com > ~/cephcluster/configs/user.json
-sudo ceph orch ps --daemon_type rgw > ~/cephcluster/configs/rgw.txt
+mkdir -p ~/draid/configs
+sudo radosgw-admin user create --uid=chenhao --display-name="Chenhao Xu" --email=xv_chen_hao@163.com > ~/draid/configs/user.json
+sudo ceph orch ps --daemon_type rgw > ~/draid/configs/rgw.txt
 
 sudo ceph osd pool ls
 

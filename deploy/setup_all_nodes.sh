@@ -28,8 +28,8 @@ scp_to_machine() {
 while read -u10 -r line
 do
   scp_to_machine "$line"
-  ssh "$username@$line" "git clone --recurse-submodules git@github.com:bucket-xv/cephcluster.git"
-  ssh "$username@$line" "cd cephcluster && git pull"
+  ssh "$username@$line" "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
+  ssh "$username@$line" "cd draid && git pull"
 done 10< ip_addrs_all.txt
 
 

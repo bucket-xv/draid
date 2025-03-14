@@ -31,7 +31,7 @@ def multi(dict, num):
         dict[key] = [single_value * num for single_value in value]
     return dict
 
-output_base_dir = os.path.expanduser('~/cephcluster/logs')
+output_base_dir = os.path.expanduser('~/draid/logs')
 
 def main():
     import argparse
@@ -59,7 +59,7 @@ def main():
     with open(config_file, 'r') as f:
         config_list = json.load(f)
     
-    cli_path = os.path.expanduser('~/cephcluster/deploy/int_ip_addrs_cli.txt')
+    cli_path = os.path.expanduser('~/draid/deploy/int_ip_addrs_cli.txt')
     with open(cli_path, 'r') as f:
         cli_num = len(f.readlines())
 

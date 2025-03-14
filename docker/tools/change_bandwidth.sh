@@ -44,7 +44,7 @@ fi
 
 INTERFACE=$(ip -4 addr show | grep -B1 "inet $IPV4_ADDRESS" | head -n1 | awk '{print $2}' | sed 's/://')
 
-cd ~/cephcluster/wondershaper
+cd ~/draid/wondershaper
 
 if [ "$flag_c" = true ]; then
     sudo ./wondershaper -a $INTERFACE -c

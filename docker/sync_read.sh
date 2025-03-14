@@ -6,7 +6,7 @@ stop_all() {
     while read -u10 -r ip
     do
         ssh "$ip" "sudo pkill -f pull_images.py"
-    done 10< ~/cephcluster/deploy/int_ip_addrs_cli.txt
+    done 10< ~/draid/deploy/int_ip_addrs_cli.txt
     echo "All processes stopped."
     exit 0
 }
@@ -32,13 +32,13 @@ rm -rf $LOG_DIR/*_out.log
 rm -rf $LOG_DIR/*_err.log
 
 # Setup traffic monitor on server nodes
-cd ~/cephcluster/docker
+cd ~/draid/docker
 while read -u10 -r ip
 do
-    TRAFFIC_MONITOR="cd ~/cephcluster/docker/tools && sudo ./monitor_network.sh"
+    TRAFFIC_MONITOR="cd ~/draid/docker/tools && sudo ./monitor_network.sh"
     REMOTE_TRAFFIC_CSV="/tmp/${ip}_traffic.csv"
     ssh $ip "($TRAFFIC_MONITOR $interface) 2>/dev/null >$REMOTE_TRAFFIC_CSV </dev/null &"
-done 10< ~/cephcluster/deploy/int_ip_addrs_server.txt
+done 10< ~/draid/deploy/int_ip_addrs_server.txt
 
 # Start experiment on all client nodes
 random_seed=0
@@ -48,9 +48,9 @@ do
     REMOTE_ERR_LOG="/tmp/${ip}_err.log"
     
     # Execute the program on the remote server and redirect output and stderr
-    ssh $ip "(cd ~/cephcluster/docker && python pull_images.py $file_num $num_threads $random_seed) >$REMOTE_OUT_LOG 2>$REMOTE_ERR_LOG </dev/null &"
+    ssh $ip "(cd ~/draid/docker && python pull_images.py $file_num $num_threads $random_seed) >$REMOTE_OUT_LOG 2>$REMOTE_ERR_LOG </dev/null &"
     random_seed=$((random_seed + num_threads))
-done 10< ~/cephcluster/deploy/int_ip_addrs_cli.txt
+done 10< ~/draid/deploy/int_ip_addrs_cli.txt
 
 echo "Execution started."
 
@@ -72,7 +72,7 @@ do
     scp "$ip:$REMOTE_ERR_LOG" "$LOG_DIR/${ip}_err.log"
     ssh "$ip" rm "$REMOTE_OUT_LOG" "$REMOTE_ERR_LOG"
 
-done 10< ~/cephcluster/deploy/int_ip_addrs_cli.txt
+done 10< ~/draid/deploy/int_ip_addrs_cli.txt
 
 # Get the traffic logs from the server nodes and terminate the traffic monitor
 while read -u10 -r ip
@@ -81,6 +81,6 @@ do
     scp "$ip:$REMOTE_TRAFFIC_CSV" "$LOG_DIR/${ip}_traffic.csv"
     ssh "$ip" sudo pkill -f "./monitor_network.sh"
     ssh "$ip" rm "$REMOTE_TRAFFIC_CSV"
-done 10< ~/cephcluster/deploy/int_ip_addrs_server.txt
+done 10< ~/draid/deploy/int_ip_addrs_server.txt
 
 echo "Execution and log retrieval completed."

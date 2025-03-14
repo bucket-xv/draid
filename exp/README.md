@@ -18,7 +18,7 @@ git commit -a -m "Update grid.py params"
 1. ssh to **the primary machine** and Run experiment on latency:
 
 ```bash
-cd ~/cephcluster/exp
+cd ~/draid/exp
 git pull
 python grid.py -c default -v -e enp65s0f0np0 -m rgw -d 4 -p 1
 ```
@@ -27,7 +27,7 @@ python grid.py -c default -v -e enp65s0f0np0 -m rgw -d 4 -p 1
 
 ```bash
 remote=$(head -n 1 deploy/ip_addr_host.txt)
-scp -r BucketXv@$remote:~/cephcluster/logs save_logs/
+scp -r BucketXv@$remote:~/draid/logs save_logs/
 ```
 
 3. Analyze the results:
@@ -41,7 +41,7 @@ python plot.py -i bottleneck
 1. ssh to **the primary machine** and Run experiment on latency:
 
 ```bash
-cd ~/cephcluster/exp
+cd ~/draid/exp
 git pull
 ./setup.sh 20 10 10000 novar
 ```

@@ -19,7 +19,7 @@ sudo ceph osd set-require-min-compat-client reef
 sudo ceph balancer mode read
 
 # Then create the pool
-cd ~/cephcluster/docker
+cd ~/draid/docker
 ./create_ecpool.sh $k $m
 
 # Enable the pool for rgw
@@ -34,7 +34,7 @@ do
 done
 
 # Create a bucket for user
-cd ~/cephcluster/docker
+cd ~/draid/docker
 sudo apt install pip -y
 pip install boto3
 python create_bucket.py

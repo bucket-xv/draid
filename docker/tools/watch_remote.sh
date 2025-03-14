@@ -12,7 +12,7 @@ INTERFACE=$1
 # cd tools && ./watch.sh $INTERFACE
 while read -r -u10 ip
 do
-    ssh $ip "git clone --recurse-submodules git@github.com:bucket-xv/cephcluster.git" 1>&2
-    ssh $ip "cd cephcluster && git pull" 1>&2
-    ssh $ip "cd cephcluster/docker/tools && ./watch.sh $INTERFACE"
-done 10< ~/cephcluster/deploy/int_ip_addrs_server.txt
+    ssh $ip "git clone --recurse-submodules git@github.com:bucket-xv/draid.git" 1>&2
+    ssh $ip "cd draid && git pull" 1>&2
+    ssh $ip "cd draid/docker/tools && ./watch.sh $INTERFACE"
+done 10< ~/draid/deploy/int_ip_addrs_server.txt

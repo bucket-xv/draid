@@ -47,9 +47,9 @@ sudo ceph orch apply rgw foo '--placement=label:rgw count-per-host:2' --port=800
 sleep 10
 
 # Create a user for rgw
-mkdir -p ~/cephcluster/configs
-sudo radosgw-admin user create --uid=chenhao --display-name="Chenhao Xu" --email=xv_chen_hao@163.com > ~/cephcluster/configs/user.json
-sudo ceph orch ps --daemon_type rgw > ~/cephcluster/configs/rgw.txt
+mkdir -p ~/draid/configs
+sudo radosgw-admin user create --uid=chenhao --display-name="Chenhao Xu" --email=xv_chen_hao@163.com > ~/draid/configs/user.json
+sudo ceph orch ps --daemon_type rgw > ~/draid/configs/rgw.txt
 cd tools
 python gen_config.py
 cd ..
@@ -57,12 +57,12 @@ cd ..
 # Scp the configs to server nodes
 tail -n +2 int_ip_addrs_server.txt | while read -r ip
 do
-  scp -r ~/cephcluster/configs $ip:~/cephcluster/
+  scp -r ~/draid/configs $ip:~/draid/
 done 
 
 # Scp the configs to cli nodes
 while read -r -u10 cli_ip
 do
-  scp -r ~/cephcluster/configs $cli_ip:~/cephcluster/
+  scp -r ~/draid/configs $cli_ip:~/draid/
 done 10< int_ip_addrs_cli.txt
 

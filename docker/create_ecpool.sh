@@ -20,7 +20,7 @@ sudo ceph osd pool create default.rgw.buckets.data erasure ecprofile
 # sudo ceph osd pool create default.rgw.glacier.data erasure ecprofile
 
 sleep 20
-cd ~/cephcluster/docker
+cd ~/draid/docker
 for i in {1..5}
 do
     sleep 3

@@ -1,6 +1,6 @@
-# Cephcluster Deployment
+# draid Deployment
 
-This folder is used to deploy a experimental Cephcluster on the cloudlab machines.
+This folder is used to deploy a experimental draid on the cloudlab machines.
 
 ## Setup the Testbed
 
@@ -20,8 +20,8 @@ git push
 tmux
 
 ssh-keyscan github.com >> ~/.ssh/known_hosts
-git clone --recurse-submodules git@github.com:bucket-xv/cephcluster.git
-cd cephcluster/deploy
+git clone --recurse-submodules git@github.com:bucket-xv/draid.git
+cd draid/deploy
 ```
 
 3. Use `lsblk` and `fdisk` to find or create the disk to use for the testbed
@@ -31,7 +31,7 @@ lsblk
 sudo fdisk /dev/sd*
 ```
 
-4. Run the script to install Cephcluster. You may need to enter `Yes` once.
+4. Run the script to install draid. You may need to enter `Yes` once.
 
 ```Bash
 # ./deploy_source.sh /dev/sda4 4 /dev/sdb
@@ -42,7 +42,7 @@ sudo fdisk /dev/sd*
 5. Destoy the testbed
 
 ```Bash
-cd ~/cephcluster/deploy
+cd ~/draid/deploy
 ./destroy.sh
 ```
 

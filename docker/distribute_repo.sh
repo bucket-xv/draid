@@ -10,8 +10,8 @@ do
 
   # Set registry
   ssh "$user@$line" "sudo apt update && sudo apt install containerd docker.io iftop -y"
-  ssh "$user@$line" "cd cephcluster && git pull && git submodule update --init --recursive"
-  # ssh "$user@$line" "cd cephcluster/docker/tools && ./add_registry.sh $registry"
+  ssh "$user@$line" "cd draid && git pull && git submodule update --init --recursive"
+  # ssh "$user@$line" "cd draid/docker/tools && ./add_registry.sh $registry"
 
 done 10< ../deploy/ip_addrs_all.txt
 

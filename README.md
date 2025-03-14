@@ -1,4 +1,4 @@
-# CephCluster
+# draid
 
 This repository contains the code to build, deploy and test a Ceph cluster.
 

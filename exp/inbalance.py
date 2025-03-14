@@ -2,7 +2,7 @@ import json
 import os
 import matplotlib.pyplot as plt
 
-json_path = '/home/xvchenhao/cephcluster/save_logs/logs.json'
+json_path = '/home/xvchenhao/draid/save_logs/logs.json'
 output_base_dir = 'images/'
 def main():
     with open(json_path, 'r') as f:

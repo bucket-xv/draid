@@ -23,21 +23,21 @@ cd ../docker
 3. Execute the following command(on the mon node):
 
 ```Bash
-cd ~/cephcluster/docker
+cd ~/draid/docker
 ./cluster.sh <k> <m> # k denotes the number of data chunks and m denotes the number of parity chunks
 ``` 
 
 4. Then ssh to the last rgw server(possibly the only) to deploy registry on it:
 
 ```Bash
-cd ~/cephcluster/docker
+cd ~/draid/docker
 ./start_registry.sh
 ```
 
 5. Add whatever image you want to that registry:
 
 ```Bash
-cd ~/cephcluster/docker
+cd ~/draid/docker
 ./push_to_registry.sh <ImageName> # ImageName is the name of the image you want to push to the registry
 ```
 
@@ -56,7 +56,7 @@ python gen_settings.py -n 4 -o default -r 1
 1. ssh to **the primary machine** and Run experiment on latency:
 
 ```bash
-cd ~/cephcluster/docker
+cd ~/draid/docker
 git pull
 python grid.py -c default -v -e enp65s0f0np0 -d 3 -p 1
 ```
@@ -65,7 +65,7 @@ python grid.py -c default -v -e enp65s0f0np0 -d 3 -p 1
 
 ```bash
 remote=$(head -n 1 deploy/ip_addr_host.txt)
-scp -r BucketXv@$remote:~/cephcluster/logs save_logs/
+scp -r BucketXv@$remote:~/draid/logs save_logs/
 ```
 
 3. Analyze the results:

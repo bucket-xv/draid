@@ -2,7 +2,7 @@ import boto3
 import yaml
 import os
 
-registry_config_path = os.path.expanduser('~/cephcluster/configs/registry.yml')
+registry_config_path = os.path.expanduser('~/draid/configs/registry.yml')
 
 def create_bucket():
     with open(registry_config_path, 'r') as file:

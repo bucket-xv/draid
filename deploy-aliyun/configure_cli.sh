@@ -32,12 +32,12 @@ do
     
     # Install librados
     ssh $cli_ip "sudo apt update -y && ssh-keyscan github.com >> ~/.ssh/known_hosts"
-    ssh $cli_ip "git clone git@github.com:bucket-xv/cephcluster; cd cephcluster && git pull"
+    ssh $cli_ip "git clone git@github.com:bucket-xv/draid; cd draid && git pull"
     if [ $release -eq 1 ]; then
-        ssh $cli_ip "cd cephcluster/deploy/tools && ./install_release.sh"
+        ssh $cli_ip "cd draid/deploy/tools && ./install_release.sh"
     else
         echo "Without release flag"
-        ssh $cli_ip "cd cephcluster/deploy/tools && ./install_source.sh"
+        ssh $cli_ip "cd draid/deploy/tools && ./install_source.sh"
     fi
     ssh $cli_ip "sudo apt install pip -y && pip install boto3"
 

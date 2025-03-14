@@ -1,6 +1,6 @@
 #!/bin/bash
 
-registry=$(tail -n 1 ~/cephcluster/deploy/int_ip_addrs_server.txt)
+registry=$(tail -n 1 ~/draid/deploy/int_ip_addrs_server.txt)
 
 content="{
   \"insecure-registries\" : [\"$registry:5000\"]

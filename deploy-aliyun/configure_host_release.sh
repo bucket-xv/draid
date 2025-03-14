@@ -12,7 +12,7 @@ tools/install_release.sh
 sudo apt install sysstat iftop -y
 
 # cephadm bootstrap
-cd ~/cephcluster/deploy
+cd ~/draid/deploy
 host=$(head -n 1 int_ip_addrs_server.txt)
 sudo cephadm bootstrap --mon-ip $host --allow-fqdn-hostname --cluster-network 10.10.1.0/24 --public-network 10.10.1.0/24
 sudo ceph orch apply osd --all-available-devices
