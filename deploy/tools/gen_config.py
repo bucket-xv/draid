@@ -8,11 +8,12 @@ bucket = 'registry'
 if __name__ == '__main__':
 
     # Path to files
-    working_dir = '../../configs'
-    rgw_path = os.path.join(working_dir, 'rgw.txt')
-    user_path = os.path.join(working_dir, 'user.json')
-    template_path = 'template.yml'
-    output_path = os.path.join(working_dir, 'registry.yml')
+    project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    configs_dir = os.path.join(project_dir, 'configs')
+    rgw_path = os.path.join(configs_dir, 'rgw.txt')
+    user_path = os.path.join(configs_dir, 'user.json')
+    template_path = os.path.join(project_dir, 'deploy', 'tools', 'template.yml')
+    output_path = os.path.join(configs_dir, 'registry.yml')
 
     # First, get the urls of the rgw daemons
 
