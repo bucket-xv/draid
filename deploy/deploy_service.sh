@@ -34,7 +34,7 @@ while read -r -u10 line; do
     echo "$hostname is for rgw"
     sudo ceph orch host label add $hostname rgw
   else
-    # If not, the host is for osd service
+    # If not, the host is for osd servic""e
     # Add the osd
     echo "$hostname is for osd"
     sudo ceph orch daemon add osd $hostname:$device
