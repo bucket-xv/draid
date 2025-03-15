@@ -11,7 +11,7 @@ export PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
 
 # install cephadm and ceph-common
 tools/install_source.sh
-sudo apt install sysstat iftop -y
+sudo apt install sysstat iftop python-is-python3 -y
 
 # cephadm bootstrap
 cd $PROJ_DIR/configs

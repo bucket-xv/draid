@@ -41,6 +41,6 @@ do
         echo "Without release flag"
         ssh $cli_ip "cd $PROJ_DIR/deploy/tools && ./install_source.sh"
     fi
-    ssh $cli_ip "sudo apt install pip -y && pip install boto3"
+    ssh $cli_ip "sudo apt install pip python-is-python3 -y && pip install boto3"
 
 done 10< $PROJ_DIR/configs/int_ip_addrs_cli.txt
