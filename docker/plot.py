@@ -7,7 +7,8 @@ import argparse
 from tools.convert import str_to_dict
 
 # Replace 'parent_directory' with the path to your log directory
-base_directory = '/home/xvchenhao/draid/save_logs'
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+base_directory = os.path.join(project_dir, 'save_logs')
 
 parser = argparse.ArgumentParser(description='Plot the average latency of the logs')
 parser.add_argument('-m', '--mode', type=str, default='bottleneck', choices=['bottleneck', 'gaussian'], help='the mode to plot') 

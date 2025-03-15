@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
+export DRAID_DIR=$(dirname "$(dirname $(realpath "$0"))")
 
 # mount sda4 to /var/lib/ceph
 # dev=$1
@@ -14,7 +14,7 @@ tools/install_source.sh
 sudo apt install sysstat iftop python-is-python3 -y
 
 # cephadm bootstrap
-cd $PROJ_DIR/configs
+cd $DRAID_DIR/configs
 host=$(head -n 1 int_ip_addrs_server.txt) # Use the cluster network interface
 sudo cephadm --image $host:5000/ceph:centos bootstrap --mon-ip $host --allow-fqdn-hostname -c ceph.conf
 # sudo ceph orch apply osd --all-available-devices

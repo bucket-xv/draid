@@ -3,6 +3,8 @@
 # Usage: ./create_ecpool.sh <k> <m>
 # Description: Create an erasure-coded pool with k data chunks and m coding chunks
 # Example: ./create_ecpool.sh 3 2
+
+export DRAID_DIR=$(dirname "$(dirname "$(realpath "$0")")")
 if [ "$#" -ne 2 ]; then
     echo "Illegal number of parameters"
     echo "Usage: ./create_ecpool.sh <k> <m>"
@@ -20,7 +22,7 @@ sudo ceph osd pool create default.rgw.buckets.data erasure ecprofile
 # sudo ceph osd pool create default.rgw.glacier.data erasure ecprofile
 
 sleep 20
-cd ~/draid/docker
+cd $DRAID_DIR/docker
 for i in {1..5}
 do
     sleep 3

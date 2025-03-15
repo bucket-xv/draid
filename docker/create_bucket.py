@@ -2,7 +2,8 @@ import boto3
 import yaml
 import os
 
-registry_config_path = os.path.expanduser('~/draid/configs/registry.yml')
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+registry_config_path = os.path.join(project_dir, 'configs', 'registry.yml')
 
 def create_bucket():
     with open(registry_config_path, 'r') as file:

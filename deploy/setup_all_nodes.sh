@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
+DRAID_DIR=$(dirname "$(dirname $(realpath "$0"))")
 username=$1
 
 # generate ip addresses from manifest, this is yet to be implemented
@@ -35,7 +35,7 @@ do
   ssh "$username@$line" "cd draid && git pull"
   scp -r ../configs $username@$line:~/draid/
   ssh "$username@$line" "cd draid && python3 deploy/tools/add_registry.py" 
-done 10< $PROJ_DIR/configs/ip_addrs_all.txt
+done 10< $DRAID_DIR/configs/ip_addrs_all.txt
 
 echo "You are all set!"
 

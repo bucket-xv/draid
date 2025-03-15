@@ -6,6 +6,8 @@ usage() {
     exit 1
 }
 
+export DRAID_DIR=$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")
+
 # Check if at least one argument is provided
 if [ $# -eq 0 ]; then
     usage
@@ -44,15 +46,10 @@ fi
 
 INTERFACE=$(ip -4 addr show | grep -B1 "inet $IPV4_ADDRESS" | head -n1 | awk '{print $2}' | sed 's/://')
 
-cd ~/draid/wondershaper
+cd $DRAID_DIR/wondershaper
 
 if [ "$flag_c" = true ]; then
     sudo ./wondershaper -a $INTERFACE -c
 else
     sudo ./wondershaper -a $INTERFACE -d $bandwidth -u $bandwidth
 fi
-
-
-cd ~
-
-

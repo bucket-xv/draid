@@ -1,14 +1,16 @@
+export DRAID_DIR=$(dirname "$(dirname "$(realpath "$0")")")
+
 # Show ceph cluster status
 sudo ceph balancer eval default.rgw.buckets.data
 sudo ceph pg ls-by-pool default.rgw.buckets.data
-sudo ceph pg ls-by-pool default.rgw.buckets.data | python ~/draid/docker/tools/info.py
+sudo ceph pg ls-by-pool default.rgw.buckets.data | python $DRAID_DIR/docker/tools/info.py
 sudo ceph orch ps 
 sudo ceph device ls
 sudo ceph osd pool ls
 sudo rados df
 
 for i in $(seq 0 50); do
-    sudo rados -p default.rgw.buckets.data put object$i ~/draid/data/0.txt
+    sudo rados -p default.rgw.buckets.data put object$i $DRAID_DIR/data/0.txt
     echo "Put object$i"
 done
 
@@ -23,7 +25,7 @@ sudo ceph balancer optimize plan
 sudo ceph balancer show plan
 sudo ceph balancer execute plan
 
-sudo ceph pg ls-by-pool default.rgw.buckets.data | python docker/tools/info.py
+sudo ceph pg ls-by-pool default.rgw.buckets.data | python $DRAID_DIR/docker/tools/info.py
 
 sudo apt install iftop -y
 sudo iftop -i *

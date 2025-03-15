@@ -7,7 +7,7 @@
 2. Then execute on your **local machine**:
 ```bash
 cd ../docker
-./distribute_repo.sh <Username> # Username is used to ssh to remote machines
+./sync_repo.sh <Username> # Username is used to ssh to remote machines
 ```
 
 3. Execute the following command(on the mon node):
@@ -38,7 +38,7 @@ cd ~/draid/docker
 1. Run the script to generate the test settings
 
 ```bash
-python gen_settings.py -n 4 -o default -r 1
+python gen_settings.py -n 3 -o default -r 1
 ```
 
 ### Automate Test suite
@@ -48,14 +48,14 @@ python gen_settings.py -n 4 -o default -r 1
 ```bash
 cd ~/draid/docker
 git pull
-python grid.py -c default -v -e enp65s0f0np0 -d 3 -p 1
+python grid.py -c default -v -e eth0 -d 2 -p 1
 ```
 
 2. Get the results:
 
 ```bash
-remote=$(head -n 1 deploy/ip_addr_host.txt)
-scp -r BucketXv@$remote:~/draid/logs save_logs/
+remote=$(head -n 1 configs/int_ip_addrs_server.txt)
+scp -r root@$remote:~/draid/logs save_logs/
 ```
 
 3. Analyze the results:

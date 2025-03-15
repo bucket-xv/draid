@@ -1,4 +1,4 @@
-PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
+DRAID_DIR=$(dirname "$(dirname $(realpath "$0"))")
 
 sudo ceph orch rm rgw.foo
 sudo ceph orch stop prometheus
@@ -15,7 +15,7 @@ while read -r -u10 osd_ip
 do
     hostname=$(ssh $osd_ip hostname)
     sudo ceph orch host drain $hostname --zap-osd-devices
-done 10< $PROJ_DIR/configs/int_ip_addrs_server.txt
+done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
 
 # # Function to check if the output contains "success"
 # contains_osd() {
@@ -69,10 +69,10 @@ do
     ssh $osd_ip "cd draid && git pull"
     ssh $osd_ip "cd draid/deploy/tools && ./zap_osd.sh $fsid"
     ssh $osd_ip "cd draid/deploy/tools && ./clear_deb.sh"
-done 10< $PROJ_DIR/configs/int_ip_addrs_server.txt
+done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
 
 while read -r -u10 osd_ip
 do
     ssh $osd_ip "cd draid && git pull"
     ssh $osd_ip "cd draid/deploy/tools && ./clear_deb.sh"
-done 10< $PROJ_DIR/configs/int_ip_addrs_cli.txt
+done 10< $DRAID_DIR/configs/int_ip_addrs_cli.txt

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-export PROJ_DIR=$(dirname "$(dirname "$(realpath "$0")")")
+export DRAID_DIR=$(dirname "$(dirname "$(realpath "$0")")")
 
-registry=$(tail -n 1 $PROJ_DIR/deploy/int_ip_addrs_server.txt)
+registry=$(tail -n 1 $DRAID_DIR/deploy/int_ip_addrs_server.txt)
 
 sudo docker run -d -p 5000:5000 -p 5001:5001 --restart=always --name registry \
-                -v $PROJ_DIR/configs/registry.yml:/etc/docker/registry/config.yml \
+                -v $DRAID_DIR/configs/registry.yml:/etc/docker/registry/config.yml \
                 registry
 
                 # -v `pwd`/../configs/registry.yml:/etc/distribution/config.yml \

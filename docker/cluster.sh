@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DRAID_DIR=$(dirname "$(dirname "$(realpath "$0")")")
+
 # Check if the correct number of arguments is provided
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 k m"
@@ -19,7 +21,7 @@ sudo ceph osd set-require-min-compat-client reef
 sudo ceph balancer mode read
 
 # Then create the pool
-cd ~/draid/docker
+cd $DRAID_DIR/docker
 ./create_ecpool.sh $k $m
 
 # Enable the pool for rgw
@@ -34,7 +36,7 @@ do
 done
 
 # Create a bucket for user
-cd ~/draid/docker
+cd $DRAID_DIR/docker
 sudo apt install pip -y
 pip install boto3
 python create_bucket.py

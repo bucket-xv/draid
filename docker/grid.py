@@ -8,6 +8,8 @@ from tools.convert import dict_to_str
 from tools.osdmap import osd_node_mapping
 from tools.image import push_image
 
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 def sub(tx_0, rx_0, tx_1, rx_1):
     if len(tx_0) == len(tx_1):
         for i in range(len(tx_0)):
@@ -31,7 +33,7 @@ def multi(dict, num):
         dict[key] = [single_value * num for single_value in value]
     return dict
 
-output_base_dir = os.path.expanduser('~/draid/logs')
+output_base_dir = os.path.join(project_dir, 'logs')
 
 def main():
     import argparse
@@ -59,7 +61,7 @@ def main():
     with open(config_file, 'r') as f:
         config_list = json.load(f)
     
-    cli_path = os.path.expanduser('~/draid/deploy/int_ip_addrs_cli.txt')
+    cli_path = os.path.join(project_dir, 'configs', 'int_ip_addrs_cli.txt')
     with open(cli_path, 'r') as f:
         cli_num = len(f.readlines())
 

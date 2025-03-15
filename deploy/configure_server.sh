@@ -1,5 +1,5 @@
 # Copy the `id_ed25519` from user to root
-PROJ_DIR=$(dirname "$(dirname $(realpath "$0"))")
+DRAID_DIR=$(dirname "$(dirname $(realpath "$0"))")
 
 # Distribute ssh keys
 while read -r -u10 osd_ip
@@ -9,10 +9,10 @@ do
     sudo cat /etc/ceph/ceph.pub | ssh $osd_ip "sudo cat >> ~/.ssh/authorized_keys"
     sudo ssh -o StrictHostKeyChecking=no $osd_ip "echo Hello!"
     sudo ssh-copy-id -f -i /etc/ceph/ceph.pub root@$osd_ip
-done 10< $PROJ_DIR/configs/int_ip_addrs_server.txt
+done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
 
 # Install
-lines=$(tail -n +2 $PROJ_DIR/configs/int_ip_addrs_server.txt)
+lines=$(tail -n +2 $DRAID_DIR/configs/int_ip_addrs_server.txt)
 while read -r -u10 osd_ip
 do
     echo "Configure server $osd_ip"
