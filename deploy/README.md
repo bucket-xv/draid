@@ -38,14 +38,7 @@ ssh root@$server_ip "docker run -d -p 5000:5000 --restart=always --name registry
 ssh root@$server_ip2 "docker load -i /tmp/registry.zip"
 
 
-docker pull docker.io/bucketxv/ceph:centos
-docker save -o /tmp/ceph.zip docker.io/bucketxv/ceph:centos
-export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
-export registry_ip=$(head -n 1 configs/int_ip_addrs_server.txt)
-scp /tmp/ceph.zip root@$server_ip:/tmp/ceph.zip
-ssh root@$server_ip "docker load -i /tmp/ceph.zip"
-ssh root@$server_ip "docker tag docker.io/bucketxv/ceph:centos $registry_ip:5000/ceph:centos"
-ssh root@$server_ip "docker push $registry_ip:5000/ceph:centos"
+
 ```
 
 4. Run the script to install draid. You may need to enter `Yes` once.
