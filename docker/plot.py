@@ -160,12 +160,12 @@ for i in range(len(inbalance_plot_dict)):
     data = list(inbalance_plot_dict.values())[i]
     data = sorted(data.items())[args.from_index:args.to_index]
     data_x, data_y = zip(*data)
-    axs[i].plot(data_x, data_y, label='Inbalance')
+    axs[i].scatter(data_x, data_y, label='Inbalance')
 
     data = list(balance_plot_dict.values())[i]
     data = sorted(data.items())[args.from_index:args.to_index]
     data_x, data_y = zip(*data)
-    axs[i].plot(data_x, data_y, label='Balance')
+    axs[i].scatter(data_x, data_y, label='Balance')
 
     if args.mode == 'bottleneck':
         axs[i].set_xlabel('Bottleneck Bandwidth (Gbps)')
