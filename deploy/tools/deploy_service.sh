@@ -64,6 +64,7 @@ done
 # Scp the configs to cli nodes
 while read -r -u10 cli_ip
 do
+  echo "Scp the configs to $cli_ip"
   scp -r $PROJ_DIR/configs $cli_ip:$PROJ_DIR/
 done 10< $PROJ_DIR/configs/int_ip_addrs_cli.txt
 
