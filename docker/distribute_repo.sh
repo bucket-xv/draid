@@ -5,8 +5,8 @@ registry=$(tail -n 1 ../deploy/int_ip_addrs_server.txt)
 while read -u10 -r line
 do
   # Distribute repo
-  ssh "$user@$line" "git clone --recurse-submodules git@github.com:serverless-project/ServerlessPilot.git --branch xch/deploy"
-  ssh "$user@$line" "cd ServerlessPilot && git pull && git submodule update --init --recursive --remote"
+  # ssh "$user@$line" "git clone --recurse-submodules git@github.com:serverless-project/ServerlessPilot.git --branch xch/deploy"
+  # ssh "$user@$line" "cd ServerlessPilot && git pull && git submodule update --init --recursive --remote"
 
   # Set registry
   ssh "$user@$line" "sudo apt update && sudo apt install containerd docker.io iftop -y"

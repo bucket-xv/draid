@@ -1,18 +1,8 @@
 # Using this repository as a private docker registry backend
 
-## Deploy a private docker registry without Ceph rgw
-
-1. Follow the first step in `deploy/README.md` to distribute keys.
-
-2. Then execute on your **local machine**:
-```bash
-cd ../docker
-./distribute_repo.sh <Username> # Username is used to ssh to remote machines
-```
-
 ## Deploy a private docker registry with Ceph rgw
 
-1. Follow `deploy/README.md`.
+
 
 2. Then execute on your **local machine**:
 ```bash
