@@ -29,7 +29,7 @@ if __name__ == '__main__':
             break
         words = line.split()
         host = words[1]
-        ip = ips[-1]
+        ip = ips[-1].strip()
         port = words[2].split(':')[1]
         url = 'http://' + ip + ':' + port
         urls.append(url)
