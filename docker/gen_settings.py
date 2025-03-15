@@ -60,7 +60,7 @@ def main():
                             }
                             output.append(config)
             else:
-                for std_dev in range(1,10,1):
+                for std_dev in range(2, 4, 2):
                     bandwidth = [10 for _ in range(num_servers)]
                     bandwidth[0] = std_dev
                     for seq_num in range(0,repetition):
