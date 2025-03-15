@@ -12,7 +12,7 @@ def osd_node_mapping():
 
     # Variable to keep track of the current host
     current_host = None
-
+    count = 0
     # Parse the input data
     for line in input_data:
         # Split the line into columns
@@ -20,9 +20,9 @@ def osd_node_mapping():
         
         # Check if the line contains a host entry
         if len(columns) > 3 and columns[2] == 'host':
-            current_host = int(columns[3][4:])
+            current_host = count 
             node_to_osd_mapping[current_host] = []
-        
+            count += 1
         # Check if the line contains an OSD entry
         if len(columns) > 3 and columns[3].startswith('osd'):
             osd_name = int(columns[3].split('.')[1])
