@@ -2,8 +2,10 @@ import argparse
 import threading
 import time
 import random
+import os
 from tools.image import pull_image, remove_image
 
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def read(id, registry, file_num):
     # Wait for 0.1 seconds to avoid blocking the traffic
@@ -39,7 +41,7 @@ def main():
     args = parser.parse_args()
 
     # Get registry
-    with open('../deploy/int_ip_addrs_server.txt', 'r') as file:
+    with open(os.path.join(project_dir, 'configs', 'int_ip_addrs_server.txt'), 'r') as file:
         lines = file.readlines()
     registry = lines[-1].strip()
 

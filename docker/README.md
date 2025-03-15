@@ -54,7 +54,7 @@ python grid.py -c default -v -e eth0 -d 2 -p 1
 2. Get the results:
 
 ```bash
-remote=$(head -n 1 configs/int_ip_addrs_server.txt)
+remote=$(head -n 1 configs/ip_addrs_all.txt)
 scp -r root@$remote:~/draid/logs save_logs/
 ```
 

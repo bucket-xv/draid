@@ -2,20 +2,6 @@ import json
 import os
 import warnings
 import time
-# #!/bin/bash
-
-# registry=$(tail -n 1 ~/draid/deploy/int_ip_addrs_server.txt)
-
-# content="{
-#   \"insecure-registries\" : [\"$registry:5000\"]
-# }"
-
-# sudo mkdir -p /etc/docker
-# # sudo touch /etc/docker/daemon.json
-# echo "$content" | sudo tee /etc/docker/daemon.json > /dev/null
-
-# sleep 1
-# sudo systemctl restart docker
 
 def main():
     ip_file_path = os.path.join(os.path.dirname(__file__), '..', '..', 'configs', 'int_ip_addrs_server.txt')

@@ -1,7 +1,8 @@
 #!/bin/bash
+DRAID_DIR=$(dirname "$(dirname "$(realpath "$0")")")
 
 image=$1
-ip=$(tail -n 1 ../deploy/int_ip_addrs_server.txt)
+ip=$(tail -n 1 $DRAID_DIR/configs/int_ip_addrs_server.txt)
 
 echo $ip
 

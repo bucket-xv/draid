@@ -23,8 +23,6 @@ def count_file_lines(file_path):
         return None
     return line_count
 
-# num_servers = count_file_lines('../deploy/int_ip_addrs_server.txt') + 1
-
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='Generate settings for the simulation')
