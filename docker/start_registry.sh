@@ -2,7 +2,7 @@
 
 export DRAID_DIR=$(dirname "$(dirname "$(realpath "$0")")")
 
-registry=$(tail -n 1 $DRAID_DIR/deploy/int_ip_addrs_server.txt)
+registry=$(tail -n 1 $DRAID_DIR/configs/int_ip_addrs_server.txt)
 
 sudo docker run -d -p 5000:5000 -p 5001:5001 --restart=always --name registry \
                 -v $DRAID_DIR/configs/registry.yml:/etc/docker/registry/config.yml \

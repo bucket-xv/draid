@@ -30,9 +30,12 @@ cd deploy
 docker pull registry:2
 docker save -o /tmp/registry.zip registry:2
 export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
+export server_ip2=$(tail -n 1 configs/ip_addrs_all.txt)
 scp /tmp/registry.zip root@$server_ip:/tmp/registry.zip
+scp /tmp/registry.zip root@$server_ip2:/tmp/registry.zip
 ssh root@$server_ip "docker load -i /tmp/registry.zip"
 ssh root@$server_ip "docker run -d -p 5000:5000 --restart=always --name registry registry:2"
+ssh root@$server_ip2 "docker load -i /tmp/registry.zip"
 
 docker pull docker.io/bucketxv/ceph:centos
 docker save -o /tmp/ceph.zip docker.io/bucketxv/ceph:centos
