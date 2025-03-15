@@ -1,0 +1,54 @@
+[
+    {
+        "num_cores": 8,
+        "num_files": 2,
+        "file_size": 500,
+        "bandwidth": [
+            10,
+            2,
+            10
+        ],
+        "read_balance": 0,
+        "std_deviation": 2,
+        "seq_num": 0
+    },
+    {
+        "num_cores": 8,
+        "num_files": 2,
+        "file_size": 500,
+        "bandwidth": [
+            10,
+            2,
+            10
+        ],
+        "read_balance": 1,
+        "std_deviation": 2,
+        "seq_num": 0
+    },
+    {
+        "num_cores": 8,
+        "num_files": 2,
+        "file_size": 500,
+        "bandwidth": [
+            2,
+            10,
+            10
+        ],
+        "read_balance": 0,
+        "std_deviation": 2,
+        "seq_num": 1
+    },
+    {
+        "num_cores": 8,
+        "num_files": 2,
+        "file_size": 500,
+        "bandwidth": [
+            2,
+            10,
+            10
+        ],
+        "read_balance": 1,
+        "std_deviation": 2,
+        "seq_num": 1
+    }
+]
