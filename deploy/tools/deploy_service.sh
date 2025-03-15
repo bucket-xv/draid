@@ -51,7 +51,7 @@ sleep 10
 mkdir -p $PROJ_DIR/configs
 sudo radosgw-admin user create --uid=chenhao --display-name="Chenhao Xu" --email=xv_chen_hao@163.com > $PROJ_DIR/configs/user.json
 sudo ceph orch ps --daemon_type rgw > $PROJ_DIR/configs/rgw.txt
-cd tools
+cd $PROJ_DIR/deploy/tools
 python gen_config.py
 cd ..
 
