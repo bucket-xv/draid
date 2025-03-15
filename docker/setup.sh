@@ -31,7 +31,6 @@ ssh $registry "cd $DRAID_DIR/docker && ./start_registry.sh"
 # Limit the bandwidth of all server nodes
 while read -r -u10 ip && read -r -u11 bandwidth
 do
-    ssh $ip "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
     ssh $ip "cd $DRAID_DIR && git pull"
     ssh $ip "cd $DRAID_DIR/docker && ./tools/change_bandwidth.sh $ip -c && ./tools/change_bandwidth.sh $ip -l $bandwidth"
     echo "Changed bandwidth of $ip to $bandwidth"

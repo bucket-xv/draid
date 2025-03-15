@@ -34,7 +34,7 @@ do
     
     # Install librados
     ssh $cli_ip "sudo apt update -y && ssh-keyscan github.com >> ~/.ssh/known_hosts"
-    ssh $cli_ip "git clone git@github.com:bucket-xv/draid; cd $DRAID_DIR && git pull"
+    ssh $cli_ip "cd $DRAID_DIR && git pull"
     if [ $release -eq 1 ]; then
         ssh $cli_ip "cd $DRAID_DIR/deploy/tools && ./install_release.sh"
     else

@@ -11,7 +11,7 @@ do
   # ssh "$user@$line" "cd ServerlessPilot && git pull && git submodule update --init --recursive --remote"
 
   # Set registry
-  ssh "$user@$line" "sudo apt install containerd docker.io iftop python-is-python3 -y"
+  # ssh "$user@$line" "sudo apt install containerd docker.io iftop python-is-python3 -y"
   ssh "$user@$line" "cd ~/draid && git pull && git submodule update --init --recursive"
   # ssh "$user@$line" "cd $DRAID_DIR/docker/tools && ./add_registry.sh $registry"
 
