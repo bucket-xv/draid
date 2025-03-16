@@ -50,6 +50,8 @@ cd $DRAID_DIR/wondershaper
 
 if [ "$flag_c" = true ]; then
     sudo ./wondershaper -a $INTERFACE -c
+    echo "Cleared the bandwidth limit of $INTERFACE"
 else
     sudo ./wondershaper -a $INTERFACE -d $bandwidth -u $bandwidth
+    echo "Set the bandwidth limit of $INTERFACE to $bandwidth"
 fi

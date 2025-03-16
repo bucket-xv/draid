@@ -37,7 +37,7 @@ ssh root@$server_ip "docker load -i /tmp/registry.zip"
 ssh root@$server_ip "docker run -d -p 5000:5000 --restart=always --name registry registry:2"
 ssh root@$server_ip2 "docker load -i /tmp/registry.zip"
 
-
+./update.sh
 
 ```
 
