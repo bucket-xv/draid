@@ -1,0 +1,15 @@
+[
+    {
+        "num_cores": 1,
+        "num_files": 1,
+        "file_size": 50,
+        "bandwidth": [
+            10,
+            2,
+            10
+        ],
+        "read_balance": 1,
+        "std_deviation": 2,
+        "seq_num": 0
+    }
+]
