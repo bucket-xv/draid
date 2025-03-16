@@ -24,7 +24,7 @@ def push_image(image_name: str, file_size: int):
         f.write(f"FROM {registry_ip}:5000/alpine\nCOPY large_file /\n")
 
     # Build the Docker image, push it to the registry and remove the image
-    command=f"sudo docker build {temp_dir} -t {image_name} && sudo docker push {image_name} && sudo docker rmi {image_name}"
+    command=f"sudo docker build {temp_dir} -t {image_name} && sudo docker push {image_name}; sudo docker rmi {image_name}"
     return subprocess.run(command, shell=True, text=True)
 
 def pull_image(image_name: str):

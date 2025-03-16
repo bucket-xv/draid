@@ -41,6 +41,10 @@ python gen_settings.py -n 3 -o default -r 1
 
 ### Automate Test suite
 
+Note: You need to setup once each time before running the test.
+
+The setup time is around 2 minutes and the test time is around 1 minutes.
+
 1. Run the script to setup the test environment on **mon node**. Use `-v` to print the verbose output.
 
 ```bash
