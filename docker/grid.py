@@ -29,8 +29,8 @@ def parse_watch(output, osd_num):
             cal_tx.append(float(lines[i+1]))
         except:
             warnings.warn(f'Error parsing watch output: {lines}')
-            cal_rx.append(0)
-            cal_tx.append(0)
+            cal_rx.append(float(lines[i].split(' ')[0]))
+            cal_tx.append(float(lines[i+1].split(' ')[0]))
     return cal_tx, cal_rx
 
 def multi(dict, num):
