@@ -4,6 +4,13 @@
 
 PROJ_DIR=$(dirname "$(dirname "$(realpath "$0")")")
 
+# Clear the network bandwidth restrictions
+while read -r -u10 ip
+do
+    ssh $ip "cd $DRAID_DIR/docker && ./tools/change_bandwidth.sh $ip -c"
+    echo "Cleared bandwidth restriction on $ip"
+done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
+
 # Remove all images in all cli nodes
 while read -r -u10 line; do
     ssh "$line" "sudo docker rmi \$(sudo docker images -q)"
