@@ -119,7 +119,9 @@ def main():
     logs={}
     # Loop through each set of arguments and execute the script
     for idx,config in enumerate(config_list):
-        print('Executing with config: ', config)
+        print('Executing with config: ', config)        
+        output_name = dict_to_str(config)
+        output_dir = os.path.join(output_base_dir, output_name)
 
         # Define the commands
         watch_command = ['tools/watch_remote.sh',interface ]
@@ -146,8 +148,7 @@ def main():
         
         # Record the PG logs
         pg_logs = subprocess.run(pg_command,capture_output=True, text=True, check=True)
-        output_name = dict_to_str(config)
-        output_dir = os.path.join(output_base_dir, output_name)
+
         logs[output_name] = {
             'real': sub(tx_0,rx_0,tx_1,rx_1),
             'estimate': multi(parse_pg(pg_logs.stdout.strip().split('\n'), args.parity_num),int(config['num_cores'])),
