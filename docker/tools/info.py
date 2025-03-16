@@ -1,9 +1,6 @@
 import sys
-import re
 
 # Initialize a dictionary to hold the sum of bytes for each bucket
-
-
 # Read each line from standard input (stdin)
 
 def parse_pg(input, parity_chunk_num = 1):
@@ -12,15 +9,11 @@ def parse_pg(input, parity_chunk_num = 1):
     for line in input:
         # Remove leading and trailing whitespace
         words = line.split()
-        # print(line)
         
-        # print(re.search(r'\s*\d+\s+\d+\s+\d+\s+\d+\s+(\d+)\s+', line))
-        # Extract the sixth number (which represents the number of bytes)
-        # sixth_number = int(re.search(r'\s*\d+\s+\d+\s+\d+\s+\d+\s+(\d+)\s+', line).group(1))
         try:
             sixth_number = float(words[5])
         except:
-            print('Bytes is not a number')
+            # print('Bytes is not a number')
             continue
         
         state = words[10]

@@ -8,3 +8,4 @@ cd ~/cephdeb
 git pull
 sudo dpkg -i *.deb
 sudo apt --fix-broken install -y
+rm -rf ~/cephdeb # clean up

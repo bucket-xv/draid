@@ -8,6 +8,8 @@ from tools.convert import dict_to_str
 from tools.osdmap import osd_node_mapping
 import warnings
 import time
+import argparse
+
 project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def sub(tx_0, rx_0, tx_1, rx_1):
@@ -41,7 +43,6 @@ def multi(dict, num):
 output_base_dir = os.path.join(project_dir, 'logs')
 
 def main():
-    import argparse
 
     # Create the parser
     parser = argparse.ArgumentParser(description='Run the experiment according to the config file')
@@ -156,19 +157,21 @@ def main():
     # Iterate over the output_dir and print the results
     for output_dir in os.listdir(output_base_dir):
         latencies = []
-        if os.path.isdir(os.path.join(output_base_dir, output_dir)):
-            for file in os.listdir(os.path.join(output_base_dir, output_dir)):
-                if file.endswith('out.log'):
-                    with open(os.path.join(output_base_dir, output_dir, file), 'r') as f:
-                        for line in f:
-                            if line.strip() == '':
-                                continue
-                            try:
-                                latencies.append(float(line.strip()))
-                            except:
-                                warnings.warn(f'Error parsing line: {line}')
+        if not os.path.isdir(os.path.join(output_base_dir, output_dir)):
+            continue
 
-        print(f'Average image pulling latency of {"draid" if "draid" in output_dir else "baseline"}: {np.mean(latencies)}')
+        for file in os.listdir(os.path.join(output_base_dir, output_dir)):
+            if file.endswith('out.log'):
+                with open(os.path.join(output_base_dir, output_dir, file), 'r') as f:
+                    for line in f:
+                        if line.strip() == '':
+                            continue
+                        try:
+                            latencies.append(float(line.strip()))
+                        except:
+                            warnings.warn(f'Error parsing line: {line}')
+
+        print(f'Average image pulling latency of {"draid" if "balance" in output_dir else "baseline"}: {np.mean(latencies)}')
 
 if __name__ == "__main__":
     main()
