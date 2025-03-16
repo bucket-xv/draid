@@ -15,7 +15,7 @@ touch ip_addrs_all.txt
 touch ceph.conf
 ```
 
-Put all public ip addresses in `ip_addrs_all.txt` for eay setup, put all private ip addresses that composes a Ceph cluster in order in `int_ip_addrs_server.txt`, and put all private ip addresses that you want to access the Ceph cluster in `int_ip_addrs_cli.txt`. Config `ceph.conf`.
+Put all public ip addresses in `ip_addrs_all.txt` for easy setup, put all private ip addresses that composes a Ceph cluster in order in `int_ip_addrs_server.txt`, and put all private ip addresses that you want to access the Ceph cluster in `int_ip_addrs_cli.txt`. Config `ceph.conf`.
 
 2. Copy the manifest to manifest.xml and execute the following command:
 
@@ -34,8 +34,7 @@ cd deploy
 
 ```Bash
 tmux
-# ./deploy_source.sh /dev/sda4 4 /dev/sdb
-./deploy_source.sh 3 /dev/sd* # <the log disk> <the number of osd servers> <the osd disk>
+./deploy_source.sh 3 /dev/sd* # <the number of osd servers> <the osd disk>
 ```
 
 5. (Optional) Destoy the testbed
