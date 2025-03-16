@@ -7,7 +7,7 @@ import numpy as np
 from tools.convert import dict_to_str
 from tools.osdmap import osd_node_mapping
 from tools.image import push_image
-
+import warnings
 project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def sub(tx_0, rx_0, tx_1, rx_1):
@@ -24,8 +24,13 @@ def parse_watch(output):
     cal_rx = []
     cal_tx = []
     for i in range(0, len(lines),2):
-        cal_rx.append(float(lines[i]))
-        cal_tx.append(float(lines[i+1]))
+        try:
+            cal_rx.append(float(lines[i]))
+            cal_tx.append(float(lines[i+1]))
+        except:
+            warnings.warn(f'Error parsing watch output: {lines[i]}, {lines[i+1]}')
+            cal_rx.append(0)
+            cal_tx.append(0)
     return cal_tx, cal_rx
 
 def multi(dict, num):
