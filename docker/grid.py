@@ -28,7 +28,7 @@ def parse_watch(output):
             cal_rx.append(float(lines[i]))
             cal_tx.append(float(lines[i+1]))
         except:
-            warnings.warn(f'Error parsing watch output: {lines[i]}, {lines[i+1]}')
+            warnings.warn(f'Error parsing watch output: {lines}')
             cal_rx.append(0)
             cal_tx.append(0)
     return cal_tx, cal_rx
