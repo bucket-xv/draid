@@ -27,21 +27,10 @@ cd deploy
 3. Upload the docker image to remote:
 
 ```bash
-docker pull registry:2
-docker save -o /tmp/registry.zip registry:2
-export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
-export server_ip2=$(tail -n 1 configs/ip_addrs_all.txt)
-scp /tmp/registry.zip root@$server_ip:/tmp/registry.zip
-scp /tmp/registry.zip root@$server_ip2:/tmp/registry.zip
-ssh root@$server_ip "docker load -i /tmp/registry.zip"
-ssh root@$server_ip "docker run -d -p 5000:5000 --restart=always --name registry registry:2"
-ssh root@$server_ip2 "docker load -i /tmp/registry.zip"
-
-./update.sh
-
+./upload.sh root
 ```
 
-4. Run the script to install draid. You may need to enter `Yes` once.
+4. SSH to the first server and run the script to install draid. You may need to enter `Yes` once.
 
 ```Bash
 tmux
@@ -49,14 +38,11 @@ tmux
 ./deploy_source.sh 3 /dev/sd* # <the log disk> <the number of osd servers> <the osd disk>
 ```
 
-
-5. Destoy the testbed
+5. (Optional) Destoy the testbed
 
 ```Bash
-cd ~/draid/deploy
 ./destroy.sh
 ```
-
 
 ## Note
 
