@@ -29,4 +29,4 @@ sleep 1
 
 # Delete the pool
 sudo ceph osd pool delete default.rgw.buckets.data default.rgw.buckets.data --yes-i-really-really-mean-it
-sleep 20
+# sleep 20
