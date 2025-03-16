@@ -113,46 +113,26 @@ def main():
 
     if args.mode == 'setup':
         setup(args, config_list[0])
-        print('Setup completed!')
+        print('Total setup time: ', time.time() - start_time)
         exit()
 
     logs={}
     # Loop through each set of arguments and execute the script
     for idx,config in enumerate(config_list):
-        print('Executing with config: ', config)        
+        print('Executing with config: ', config)
         output_name = dict_to_str(config)
         output_dir = os.path.join(output_base_dir, output_name)
-
-        # Define the commands
-        watch_command = ['tools/watch_remote.sh',interface ]
-        pg_command = ['sudo', 'ceph', 'pg', 'ls-by-pool', 'default.rgw.buckets.data']
        
         # perform read balance if needed
         if config['read_balance'] == 1:
             balance_command = ['./tools/do_read_balance.sh']
             subprocess.run(balance_command)
-        
-        # Record the base flow
-        before = subprocess.run(watch_command,capture_output=True, text=True, check=True)
-        tx_0, rx_0 = parse_watch(before.stdout, args.data_num + args.parity_num)
-        print('Setup completed!')
 
         # Execute the experiment
+        print('Execution Starts!')
         exp_cmd = map(str, ['./sync_read.sh', config['num_files'], config['num_cores'], output_dir, interface])
         subprocess.run(exp_cmd, capture_output=not args.verbose, text=True, check=True)
         print('Execution Ends!')
-
-        # Record the after flow
-        after = subprocess.run(watch_command,capture_output=True, text=True, check=True)
-        tx_1, rx_1 = parse_watch(after.stdout, args.data_num + args.parity_num)
-        
-        # Record the PG logs
-        pg_logs = subprocess.run(pg_command,capture_output=True, text=True, check=True)
-
-        logs[output_name] = {
-            'real': sub(tx_0,rx_0,tx_1,rx_1),
-            'estimate': multi(parse_pg(pg_logs.stdout.strip().split('\n'), args.parity_num),int(config['num_cores'])),
-        }
 
     # Cleanup
     cleanup_cmd = ['./cleanup.sh']

@@ -2,7 +2,7 @@
 # Usage: ./cleanup.sh
 # Description: Remove all objects in the pool
 
-PROJ_DIR=$(dirname "$(dirname "$(realpath "$0")")")
+DRAID_DIR=$(dirname "$(dirname "$(realpath "$0")")")
 
 # Clear the network bandwidth restrictions
 while read -r -u10 ip
@@ -14,10 +14,10 @@ done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
 # Remove all images in all cli nodes
 while read -r -u10 line; do
     ssh "$line" "sudo docker rmi \$(sudo docker images -q)"
-done 10< $PROJ_DIR/configs/int_ip_addrs_cli.txt
+done 10< $DRAID_DIR/configs/int_ip_addrs_cli.txt
 
 # Stop and remove registry
-registry=$(tail -n 1 $PROJ_DIR/configs/int_ip_addrs_server.txt)
+registry=$(tail -n 1 $DRAID_DIR/configs/int_ip_addrs_server.txt)
 ssh "$registry" "sudo docker stop registry && sudo docker rm registry"
 
 # Remove all objects in the pool
