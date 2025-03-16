@@ -19,11 +19,11 @@ def sub(tx_0, rx_0, tx_1, rx_1):
     else:
         return 'Error: The length of tx_0 and tx_1 are not equal!'
 
-def parse_watch(output):
+def parse_watch(output, osd_num):
     lines = output.strip().split('\n')
     cal_rx = []
     cal_tx = []
-    for i in range(0, len(lines),2):
+    for i in range(0, min(len(lines), osd_num * 2),2):
         try:
             cal_rx.append(float(lines[i]))
             cal_tx.append(float(lines[i+1]))
@@ -58,6 +58,7 @@ def main():
     
     # Parse the arguments
     args = parser.parse_args()
+
     
     config_file = os.path.join('settings', f'{args.config}.json')
 
@@ -99,6 +100,7 @@ def main():
         primary_affinity = bandwidth_list/np.max(bandwidth_list)
         node_to_osd_mapping, osd_to_node_mapping = osd_node_mapping()
         assert len(primary_affinity) == len(node_to_osd_mapping)
+        assert args.data_num + args.parity_num == len(primary_affinity)
         for osd, node in osd_to_node_mapping.items():
             primary_command = ['sudo', 'ceph', 'osd', 'primary-affinity', str(osd), format(primary_affinity[node],'.2f')]
             subprocess.run(primary_command,capture_output=not args.verbose, text=True, check=True)
@@ -120,7 +122,7 @@ def main():
         
         # Record the base flow
         before = subprocess.run(watch_command,capture_output=True, text=True, check=True)
-        tx_0, rx_0 = parse_watch(before.stdout)
+        tx_0, rx_0 = parse_watch(before.stdout, args.data_num + args.parity_num)
         print('Setup completed!')
 
         # Execute the experiment
@@ -130,7 +132,7 @@ def main():
 
         # Record the after flow
         after = subprocess.run(watch_command,capture_output=True, text=True, check=True)
-        tx_1, rx_1 = parse_watch(after.stdout)
+        tx_1, rx_1 = parse_watch(after.stdout, args.data_num + args.parity_num)
         
         # Record the PG logs
         pg_logs = subprocess.run(pg_command,capture_output=True, text=True, check=True)
