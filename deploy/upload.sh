@@ -13,6 +13,13 @@ upload_image() {
     ssh root@$server_ip "docker push $registry_ip:5000/$image_name"
 }
 
-# upload_image bucketxv/ceph:centos
+docker pull registry:2
+docker save -o /tmp/registry.zip registry:2
+export server_ip=$(head -n 1 configs/ip_addrs_all.txt)
+scp /tmp/registry.zip root@$server_ip:/tmp/registry.zip
+ssh root@$server_ip "docker load -i /tmp/registry.zip"
+ssh root@$server_ip "docker run -d -p 5000:5000 --restart=always --name registry registry:2"
+
+upload_image bucketxv/ceph:centos
 upload_image alpine:latest
 upload_image registry:2

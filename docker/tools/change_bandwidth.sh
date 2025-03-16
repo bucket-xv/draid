@@ -44,7 +44,7 @@ if [ -z "$IPV4_ADDRESS" ]; then
 fi
 
 
-INTERFACE=$(ip -4 addr show | grep -B1 "inet $IPV4_ADDRESS" | head -n1 | awk '{print $2}' | sed 's/://')
+INTERFACE=$(ip -o addr show | grep "$IPV4_ADDRESS" | awk '{print $2}' | sed 's/://')
 
 cd $DRAID_DIR/wondershaper
 
