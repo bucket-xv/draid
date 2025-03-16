@@ -150,22 +150,23 @@ def main():
         json.dump(logs, f)
 
     end_time = time.time()
-    print(f'Total time: {end_time - start_time} seconds')
+    print(f'Total experiment time: {end_time - start_time} seconds')
 
     print('Experiment Summary:')
     # Iterate over the output_dir and print the results
     for output_dir in os.listdir(output_base_dir):
         latencies = []
-        for file in os.listdir(os.path.join(output_base_dir, output_dir)):
-            if file.endswith('out.log'):
-                with open(os.path.join(output_base_dir, output_dir, file), 'r') as f:
-                    for line in f:
-                        if line.strip() == '':
-                            continue
-                        try:
-                            latencies.append(float(line.strip()))
-                        except:
-                            warnings.warn(f'Error parsing line: {line}')
+        if os.path.isdir(os.path.join(output_base_dir, output_dir)):
+            for file in os.listdir(os.path.join(output_base_dir, output_dir)):
+                if file.endswith('out.log'):
+                    with open(os.path.join(output_base_dir, output_dir, file), 'r') as f:
+                        for line in f:
+                            if line.strip() == '':
+                                continue
+                            try:
+                                latencies.append(float(line.strip()))
+                            except:
+                                warnings.warn(f'Error parsing line: {line}')
 
         print(f'Average image pulling latency of {"draid" if "draid" in output_dir else "baseline"}: {np.mean(latencies)}')
 
