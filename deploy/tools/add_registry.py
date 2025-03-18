@@ -17,7 +17,7 @@ def main():
         warnings.warn(f'{docker_config_path} does not exist')
         docker_config = {}
 
-    docker_config['insecure-registries'] = []
+    docker_config['insecure-registries'] = [f'master:5000']
     for ip in ip_addrs:
         docker_config['insecure-registries'].append(f'{ip}:5000')
     os.makedirs(os.path.dirname(docker_config_path), exist_ok=True)
