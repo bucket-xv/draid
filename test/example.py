@@ -8,7 +8,7 @@ ip_file = os.path.expanduser('~/draid/configs/int_ip_addrs_cli.txt')
 
 def conn():
     with open(key_file, 'r') as f:
-        key = json.load(f)
+        key = json.load(f)['keys'][0]
     with open(ip_file, 'r') as f:
         ip = f.read().strip()
     s3 = boto3.client('s3', endpoint_url=f'http://{ip}:8000',
