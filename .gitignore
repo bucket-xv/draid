@@ -3,5 +3,5 @@ read
 file.txt
 data/
 logs/
-configs/
+/configs
 __pycache__
