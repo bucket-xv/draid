@@ -1,11 +1,11 @@
 [
     {
-        "num_cores": 1,
+        "num_cores": 2,
         "num_files": 2,
         "file_size": 500,
         "bandwidth": [
             10,
-            1,
+            2,
             10
         ],
         "read_balance": 0,
@@ -13,12 +13,12 @@
         "seq_num": 0
     },
     {
-        "num_cores": 1,
+        "num_cores": 2,
         "num_files": 2,
         "file_size": 500,
         "bandwidth": [
             10,
-            1,
+            2,
             10
         ],
         "read_balance": 1,
