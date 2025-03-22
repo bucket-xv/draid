@@ -12,9 +12,9 @@ do
 done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
 
 # Remove all images in all cli nodes
-# while read -r -u10 line; do
-#     ssh "$line" "sudo docker rmi \$(sudo docker images -q)"
-# done 10< $DRAID_DIR/configs/int_ip_addrs_cli.txt
+while read -r -u10 line; do
+    ssh "$line" "sudo docker rmi \$(sudo docker images -q)"
+done 10< $DRAID_DIR/configs/int_ip_addrs_cli.txt
 
 # Stop and remove registry
 registry=$(tail -n 1 $DRAID_DIR/configs/int_ip_addrs_server.txt)
