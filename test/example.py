@@ -27,7 +27,7 @@ def put_object(bucket_name, object_name, object_body):
 def get_object(bucket_name, object_name):
     s3 = conn()
     response = s3.get_object(Bucket=bucket_name, Key=object_name)
-    print(response)
+    print(response.content)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -41,6 +41,7 @@ def main():
         create_bucket(args.bucketname)
     elif args.action == 'put':
         put_object(args.bucketname, args.objectname, args.objectbody)
+
     elif args.action == 'get':
         get_object(args.bucketname, args.objectname)
 
