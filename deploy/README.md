@@ -4,6 +4,8 @@ This folder is used to deploy a experimental draid on the cloudlab machines.
 
 ## Setup the Testbed
 
+Note: 1~3 are executed locally, while 4~5 are executed on the **master node**.
+
 1. Make sure your current directory is `draid/`. Create empty config files first.
 
 ```bash
@@ -32,7 +34,7 @@ cd deploy
 ./upload.sh root
 ```
 
-4. SSH to the first server and run the script to install draid. You may need to enter `Yes` once.
+4. SSH to the **master node** and run the script to install draid. You may need to enter `Yes` once.
 
 ```Bash
 tmux

@@ -43,15 +43,15 @@ python gen_settings.py -n 3 -o default -r 1
 
 Note: You need to setup once each time before running the test.
 
-The setup time is around 2 minutes and the test time is around 1 minutes.
+**The setup time is around 2 minutes and the test time is around 1 minutes.**
 
-1. Run the script to setup the test environment on **mon node**. Use `-v` to print the verbose output.
+1. Run the script to setup the test environment on **master node**. Use `-v` to print the verbose output.
 
 ```bash
 python grid-simple.py -c single2 -e eth0 -d 2 -p 1 -m setup
 ```
 
-2. Run the script to run the test on **all nodes**. Use `-v` to print the verbose output.
+2. Run the script to run the test. Use `-v` to print the verbose output.
 
 ```bash
 python grid-simple.py -c single2 -e eth0 -d 2 -p 1 -m run
