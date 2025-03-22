@@ -41,6 +41,7 @@ do
         echo "Without release flag"
         ssh $cli_ip "cd $DRAID_DIR/deploy/tools && ./install_source.sh"
     fi
-    ssh $cli_ip "sudo apt install pip python-is-python3 containerd docker.io iftop -y && pip install boto3"
+    ssh $cli_ip "cd $DRAID_DIR/deploy/tools && ./install_docker.sh"
+    ssh $cli_ip "sudo apt install pip python-is-python3 iftop -y && pip install boto3"
 
 done 10< $DRAID_DIR/configs/int_ip_addrs_cli.txt

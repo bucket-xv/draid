@@ -1,5 +1,7 @@
+export DRAID_DIR=$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")
 cd ~
-sudo apt install containerd docker.io software-properties-common -y
+$DRAID_DIR/deploy/tools/install_docker.sh
+sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt update
 sudo apt install python3.10 -y
