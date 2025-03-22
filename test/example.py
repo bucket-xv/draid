@@ -30,7 +30,7 @@ def get_object(bucket_name, object_name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', type=str, help='action to perform', choices=['create', 'put', 'get'], required=True)
+    parser.add_argument('action', type=str, help='action to perform', choices=['create', 'put', 'get'])
     parser.add_argument('--bucketname', type=str, help='bucket name', default='test-bucket')
     parser.add_argument('--objectname', type=str, help='object name', default='test-object')
     parser.add_argument('--objectbody', type=str, help='object body', default='test-object-content')
