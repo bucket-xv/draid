@@ -74,7 +74,7 @@ def setup(args, config):
     num_files = config['num_files'] * config['num_cores'] * cli_num
     file_size= config['file_size'] * 1024 * 1024 # Convert to num of bytes
     push_command= map(str, ['tools/push_image.sh', num_files, file_size])
-    subprocess.run(push_command,capture_output=not args.verbose, text=True, check=True)
+    subprocess.run(push_command,capture_output=not args.verbose, text=True)
         
 def main():
 
