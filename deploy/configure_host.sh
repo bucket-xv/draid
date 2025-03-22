@@ -16,5 +16,5 @@ sudo apt install sysstat iftop python-is-python3 -y
 # cephadm bootstrap
 cd $DRAID_DIR/configs
 host=$(head -n 1 int_ip_addrs_server.txt) # Use the cluster network interface
-sudo cephadm --image $host:5000/ceph:centos bootstrap --mon-ip $host --allow-fqdn-hostname -c ceph.conf
+sudo cephadm --image $host:5000/bucketxv/ceph:centos bootstrap --mon-ip $host --allow-fqdn-hostname -c ceph.conf
 # sudo ceph orch apply osd --all-available-devices
