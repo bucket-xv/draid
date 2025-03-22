@@ -1,6 +1,7 @@
 export DRAID_DIR=$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")
+cd $DRAID_DIR/deploy/tools
+./install_docker.sh
 cd ~
-$DRAID_DIR/deploy/tools/install_docker.sh
 sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt update
