@@ -1,18 +1,24 @@
 import subprocess
 import argparse
 import os
+import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
 def push_image(image_name: str, file_size: int):
     project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+    # Set the random seed to the image name
+    random.seed(int(image_name[3:]))
 
     # Create a temporary directory for the Dockerfile and large file
     temp_dir = f"/tmp/tmp_file"
     os.makedirs(temp_dir, exist_ok=True)
 
     # Create a large file of `file_size`
-    large_file_path = os.path.join(temp_dir, 'large_file')
+    large_file_path = os.path.join(temp_dir, f'large_file_{image_name}')
     with open(large_file_path, 'wb') as f:
-        f.write(os.urandom(file_size))
+        for _ in range(file_size//1024):
+            f.write(random.getrandbits(8*1024).to_bytes(1024, byteorder='big'))
 
     # Get the registry ip address
     with open(os.path.join(project_dir, 'configs', 'int_ip_addrs_server.txt'), 'r') as f:
@@ -21,7 +27,7 @@ def push_image(image_name: str, file_size: int):
     # Create a Dockerfile in the temporary directory
     dockerfile_path = os.path.join(temp_dir, 'Dockerfile')
     with open(dockerfile_path, 'w') as f:
-        f.write(f"FROM {registry_ip}:5000/alpine\nCOPY large_file /\n")
+        f.write(f"FROM {registry_ip}:5000/alpine\nCOPY large_file_{image_name} /\n")
 
     # Build the Docker image, push it to the registry and remove the image
     # Note: remove one is of no use, we should remove all images at the end.

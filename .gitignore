@@ -4,4 +4,5 @@ file.txt
 data/
 logs/
 /configs
+/playground
 __pycache__
