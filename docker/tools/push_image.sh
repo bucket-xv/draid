@@ -15,4 +15,4 @@ ip=$(head -n 1 $DRAID_DIR/configs/int_ip_addrs_cli.txt)
 registry=$(tail -n 1 $DRAID_DIR/configs/int_ip_addrs_server.txt)
 ssh $ip "cd $DRAID_DIR/docker/tools && python image.py push $registry:5000 -n $num_files -s $file_size"
 # ssh $ip "sudo docker rmi -f \$(sudo docker images -q)"
-ssh $ip "sudo docker system prune -a"
+ssh $ip "sudo docker system prune -af"
