@@ -117,8 +117,8 @@ def main():
     # Loop through each set of arguments and execute the script
     for idx,config in enumerate(config_list):
         print('Executing with config: ', config)
-        if idx%2 == 0:
-            setup(args, config)
+        # if idx%2 == 0:
+        setup(args, config)
 
         output_name = dict_to_str(config)
         output_dir = os.path.join(output_base_dir, output_name)
@@ -153,10 +153,10 @@ def main():
         }
 
         # Cleanup
-        if idx%2 == 1:  
-            cleanup_cmd = ['./cleanup.sh']
-            subprocess.run(cleanup_cmd,capture_output=not args.verbose, text=True, check=True)
-            time.sleep(20) # Important: wait for the cleanup to finish
+        # if idx%2 == 1:  
+        cleanup_cmd = ['./cleanup.sh']
+        subprocess.run(cleanup_cmd,capture_output=not args.verbose, text=True, check=True)
+        time.sleep(20) # Important: wait for the cleanup to finish
     
     with open('../logs/logs.json', 'w') as f:
         json.dump(logs, f)
