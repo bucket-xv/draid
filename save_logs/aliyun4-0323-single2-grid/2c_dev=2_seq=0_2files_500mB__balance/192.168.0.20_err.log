@@ -1,0 +1,38 @@
+Using default tag: latest
+latest: Pulling from img0
+f18232174bc9: Pulling fs layer
+77f5f779d563: Pulling fs layer
+f18232174bc9: Download complete
+f18232174bc9: Pull complete
+77f5f779d563: Verifying Checksum
+77f5f779d563: Download complete
+77f5f779d563: Pull complete
+Digest: sha256:7587d3750333ca1ff3d1138f982db179fac81cfbcc82e49ca68cc631982bd00c
+Status: Downloaded newer image for 192.168.0.20:5000/img0:latest
+192.168.0.20:5000/img0:latest
+
+Using default tag: latest
+latest: Pulling from img3
+f18232174bc9: Pulling fs layer
+bcc14df9c6b0: Pulling fs layer
+f18232174bc9: Download complete
+f18232174bc9: Pull complete
+bcc14df9c6b0: Verifying Checksum
+bcc14df9c6b0: Download complete
+bcc14df9c6b0: Pull complete
+Digest: sha256:c5c28020fcfcf16f47e6851032424f807a73905413d96b0ab0a4f6c0140269e9
+Status: Downloaded newer image for 192.168.0.20:5000/img3:latest
+192.168.0.20:5000/img3:latest
+
+Using default tag: latest
+latest: Pulling from img1
+Digest: sha256:c5c28020fcfcf16f47e6851032424f807a73905413d96b0ab0a4f6c0140269e9
+Status: Downloaded newer image for 192.168.0.20:5000/img1:latest
+192.168.0.20:5000/img1:latest
+
+Using default tag: latest
+latest: Pulling from img2
+Digest: sha256:c5c28020fcfcf16f47e6851032424f807a73905413d96b0ab0a4f6c0140269e9
+Status: Downloaded newer image for 192.168.0.20:5000/img2:latest
+192.168.0.20:5000/img2:latest
+
