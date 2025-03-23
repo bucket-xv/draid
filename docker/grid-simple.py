@@ -75,7 +75,10 @@ def setup(args, config):
     file_size= config['file_size'] * 1024 * 1024 # Convert to num of bytes
     push_command= map(str, ['tools/push_image.sh', num_files, file_size])
     subprocess.run(push_command,capture_output=not args.verbose, text=True)
-        
+
+    # Set the bandwidth limit after all is done
+    subprocess.run(['./limit_bandwidth.sh'], capture_output=not args.verbose, text=True)
+
 def main():
 
     # Create the parser
