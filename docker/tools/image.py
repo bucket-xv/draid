@@ -1,7 +1,7 @@
 import subprocess
 import argparse
 import os
-
+from concurrent.futures import ThreadPoolExecutor, as_completed
 def push_image(image_name: str, file_size: int):
     project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -47,8 +47,11 @@ def main():
 
     args = parser.parse_args()
     if args.action == 'push':
-        for i in range(args.num):
-            push_image(f"{args.addr}/img{i}", file_size=args.size)
+        # Multithread the push operation
+        with ThreadPoolExecutor(max_workers=30) as executor:
+            futures = [executor.submit(push_image, f"{args.addr}/img{i}", args.size) for i in range(args.num)]
+            for future in as_completed(futures):
+                future.result()
     else:
         pull_image(args.addr)
     
