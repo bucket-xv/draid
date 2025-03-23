@@ -1,5 +1,12 @@
 # Using this repository as a private docker registry backend
 
+## Deploy a private docker registry with Ceph rgw
+
+1. Run the script to setup the test environment on **master node**. Use `-v` to print the verbose output.
+```bash
+python grid-simple.py -c common -e eth0 -d 2 -p 1 -m setup
+```
+
 <!--## Deploy a private docker registry with Ceph rgw
 
 1. Then execute on your **local machine**:
