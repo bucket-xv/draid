@@ -3,6 +3,7 @@ import threading
 import time
 import random
 import os
+import sys
 from tools.image import pull_image, remove_image
 
 project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,7 +19,8 @@ def read(id, registry, file_num):
     for i in obj_list:
         image_idx = file_num * id + i
         image_name = f'{registry}:5000/img{image_idx}'
-        pull_image(image_name)
+        result = pull_image(image_name)
+        print(result.stdout,file=sys.stderr)
     end = time.time()
     print(end-start)
 
