@@ -40,8 +40,11 @@ def delete_object(bucket_name, object_name):
 def list_objects(bucket_name):
     s3 = conn()
     response = s3.list_objects(Bucket=bucket_name)
-    for obj in response['Contents']:
-        print(obj['Key'])
+    if 'Contents' in response:
+        for obj in response['Contents']:
+            print(obj['Key'])
+    else:
+        print('No objects in the bucket')
 
 def main():
     parser = argparse.ArgumentParser()
