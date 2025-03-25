@@ -31,7 +31,7 @@ python grid-simple.py -c single2 -e eth0 -d 2 -p 1 -m run
 
 ## Deploy a normal functioning Ceph cluster
 
-**Note: This is the prerequisite for Bowen Su's experiment.**
+**Note: This is the prerequisite for the experiment of image_dist.**
 1. Run the script to setup the test environment on **master node**. Use `-v` to print the verbose output.
 ```bash
 python grid-simple.py -c common -e eth0 -d 2 -p 1 -m setup
