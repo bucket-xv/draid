@@ -47,9 +47,3 @@ cd draid/deploy
 ```Bash
 ./destroy.sh
 ```
-
-## Note
-
-The key difference between the `deploy_source.sh` and `deploy_release.sh` are
-- `deploy_source.sh` is used to deploy from the development source code while `deploy_release.sh` is used to deploy from the release package
-- `deploy_source.sh` uses wholely the cluster network interface while `deploy_release.sh` uses the public network interface
