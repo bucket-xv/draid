@@ -6,7 +6,7 @@ This folder is used to deploy an experimental draid on the aliyun machines.
 
 Note: 1\~3 are executed locally, while 4\~5 are executed on the **master node**.
 
-1. Make sure your current directory is `draid/`. Create empty config files first.
+### 1. Make sure your current directory is `draid/`. Create empty config files first.
 
 ```bash
 mkdir configs
@@ -24,20 +24,20 @@ touch ceph.conf
 
 **You can find the example of the config files in `examples/configs`.**
 
-2. Copy the manifest to manifest.xml and execute the following command:
+### 2. Copy the manifest to manifest.xml and execute the following command:
 
 ```Bash
 cd deploy
 ./setup_all_nodes.sh root
 ```
 
-3. Upload the Docker image to the remote:
+### 3. Upload the Docker image to the remote:
 
 ```bash
 ./upload.sh root
 ```
 
-4. SSH to the **master node** and run the script to install draid. You may need to enter `Yes` once.
+### 4. SSH to the **master node** and run the script to install draid. You may need to enter `Yes` once.
 
 ```Bash
 tmux # This process needs time, so take a tmux in case the connection is broken.
@@ -45,7 +45,7 @@ cd draid/deploy
 ./deploy_source.sh 3 /dev/sd* # <the number of osd servers> <the osd disk>
 ```
 
-5. (Optional) Destoy the testbed
+## (Caution!) Destroy the testbed
 
 ```Bash
 ./destroy.sh
