@@ -1,6 +1,6 @@
 # draid Deployment
 
-This folder is used to deploy an experimental draid on the cloudlab machines.
+This folder is used to deploy an experimental draid on the aliyun machines.
 
 ## Setup the Testbed
 
