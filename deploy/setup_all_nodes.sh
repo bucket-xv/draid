@@ -31,10 +31,13 @@ setup_keys() {
 while read -u10 -r line
 do
   setup_keys "$line"
+  # This way we still assume that draid is cloned in the home directory.
+  # However, theoretically, we can clone it in any directory. Then these lines should be modified.
   ssh "$username@$line" "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
   ssh "$username@$line" "cd draid && git pull"
-  # scp -r ../configs $username@$line:~/draid/
-  # ssh "$username@$line" "cd draid && python3 deploy/tools/add_registry.py" 
+  # The following two instructions are once commented out, I forget why.
+  scp -r ../configs $username@$line:~/draid/
+  ssh "$username@$line" "cd draid && python3 deploy/tools/add_registry.py" 
 done 10< $DRAID_DIR/configs/ip_addrs_all.txt
 
 echo "You are all set!"
