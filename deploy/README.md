@@ -20,6 +20,7 @@ touch ceph.conf
 - Put all public IP addresses in `ip_addrs_all.txt` for easy setup.
 - Put all private IP addresses that compose a Ceph cluster in order in `int_ip_addrs_server.txt`. This should be in the same order as in `ip_addrs_all.txt`.
 - Put all private IP addresses you want to access the Ceph cluster in `int_ip_addrs_cli.txt`.
+- Note that an empty line after the last ip address is needed for the above three files.
 - Change the network netmask in `ceph.conf` (private network recommended) to the one of your network.
 
 **You can find the example of the config files in `examples/configs`.**
