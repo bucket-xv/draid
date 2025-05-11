@@ -46,6 +46,23 @@ cd draid/deploy
 ./deploy_source.sh 3 /dev/sd* # <the number of osd servers> <the osd disk>
 ```
 
+### 5. Check that Ceph cluster is working.
+
+Run the following command on the **master node**. 
+
+```Bash
+sudo ceph -s
+```
+
+You should see the output like this:
+
+```Bash
+cluster:
+    id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    health: HEALTH_OK
+...
+```
+
 ## (Caution!) Destroy the testbed
 
 ```Bash
