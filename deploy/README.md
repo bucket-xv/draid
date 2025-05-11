@@ -25,10 +25,10 @@ You can find the example of the config files in `examples/configs`.
 
 ```Bash
 cd deploy
-./setup_all_nodes.sh root
+./setup_all_nodes.sh root # root is your username on the aliyun machines
 ```
 
-3. Upload the docker image to remote:
+3. Upload the docker image to remote. Note that you should have docker installed and running locally:
 
 ```bash
 ./upload.sh root
