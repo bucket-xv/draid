@@ -8,7 +8,7 @@ def push_image(image_name: str, file_size: int):
     project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
     # Set the random seed to the image name
-    image_id = image_name.split('/')[-1][3:]
+    image_id = image_name.split('/')[-1].split('img')[-1]
     random.seed(int(image_id))
 
     # Create a temporary directory for the Dockerfile and large file
