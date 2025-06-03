@@ -13,7 +13,7 @@ done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
 
 # Remove all images in all cli nodes
 while read -r -u10 line; do
-    ssh "$line" "sudo docker image ls --filter "reference=*draid-img*" --format "{{.ID}}" | xargs docker rmi -f"
+    ssh "$line" "sudo docker image ls --filter "reference=*draid-img*" --format "{{.ID}}" | xargs -r docker rmi -f"
 done 10< $DRAID_DIR/configs/int_ip_addrs_cli.txt
 
 # Stop and remove registry
