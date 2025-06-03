@@ -32,7 +32,7 @@ cd deploy
 ./setup_all_nodes.sh root # root is your username on the aliyun machines
 ```
 
-3. Upload the docker image to the remote. Note that you should have docker installed and running locally:
+### 3. Upload the docker image to the remote. Note that you should have docker installed and running locally:
 
 ```bash
 ./upload.sh root
