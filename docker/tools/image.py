@@ -56,7 +56,7 @@ def main():
     if args.action == 'push':
         # Multithread the push operation
         with ThreadPoolExecutor(max_workers=30) as executor:
-            futures = [executor.submit(push_image, f"{args.addr}/img{i}", args.size) for i in range(args.num)]
+            futures = [executor.submit(push_image, f"{args.addr}/draid-img{i}", args.size) for i in range(args.num)]
             for future in as_completed(futures):
                 future.result()
     else:
