@@ -44,6 +44,9 @@ done 10< $DRAID_DIR/configs/int_ip_addrs_server.txt
 # Add the labeling hosts as rgw
 sudo ceph orch apply rgw foo '--placement=label:rgw count-per-host:2' --port=8000
 
+# Yet add master:8000 as rgw
+sudo ceph orch apply rgw bar --placement="master" --port=8000
+
 # Wait until the service is started
 sleep 10
 
