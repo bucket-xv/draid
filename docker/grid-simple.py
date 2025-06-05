@@ -2,6 +2,7 @@ import subprocess
 import os
 import json
 from tools.info import parse_pg
+import summary
 import shutil
 import numpy as np
 from tools.convert import dict_to_str
@@ -9,6 +10,7 @@ from tools.osdmap import osd_node_mapping
 import warnings
 import time
 import argparse
+import csv
 
 project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -146,26 +148,7 @@ def main():
 
     end_time = time.time()
     print(f'Total experiment time: {end_time - start_time} seconds')
-
-    print('Experiment Summary:')
-    # Iterate over the output_dir and print the results
-    for output_dir in os.listdir(output_base_dir):
-        latencies = []
-        if not os.path.isdir(os.path.join(output_base_dir, output_dir)):
-            continue
-
-        for file in os.listdir(os.path.join(output_base_dir, output_dir)):
-            if file.endswith('out.log'):
-                with open(os.path.join(output_base_dir, output_dir, file), 'r') as f:
-                    for line in f:
-                        if line.strip() == '':
-                            continue
-                        try:
-                            latencies.append(float(line.strip()))
-                        except:
-                            warnings.warn(f'Error parsing line: {line}')
-
-        print(f'Average image pulling latency of {"draid" if "balance" in output_dir else "baseline"}: {np.mean(latencies)}')
-
+    summary.main()
+    
 if __name__ == "__main__":
     main()
