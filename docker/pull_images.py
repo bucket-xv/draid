@@ -18,7 +18,7 @@ def read(id, registry, file_num):
     start = time.time()
     for i in obj_list:
         image_idx = file_num * id + i
-        image_name = f'{registry}:5000/draid-img{image_idx}'
+        image_name = f'{registry}:5005/draid-img{image_idx}'
         result = pull_image(image_name)
         print(result.stdout,file=sys.stderr)
     end = time.time()
@@ -28,7 +28,7 @@ def remove(id, registry, file_num):
     obj_list = list(range(file_num))
     for i in obj_list:
         image_idx = file_num * id + i
-        image_name = f'{registry}:5000/draid-img{image_idx}'
+        image_name = f'{registry}:5005/draid-img{image_idx}'
         remove_image(image_name)
 
 def main():
