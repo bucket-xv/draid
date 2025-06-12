@@ -147,7 +147,7 @@ def main():
         json.dump(logs, f)
 
     end_time = time.time()
-    print(f'Total experiment time: {end_time - start_time} seconds')
+    # print(f'Total experiment time: {end_time - start_time} seconds')
     summary.main()
     
 if __name__ == "__main__":
