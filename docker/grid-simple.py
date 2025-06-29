@@ -11,6 +11,7 @@ import warnings
 import time
 import argparse
 import csv
+import logging
 
 project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -97,9 +98,15 @@ def main():
     parser.add_argument('-p', '--parity_num', type=int, default=1, help='the number of parity chunks')
 
     parser.add_argument('-m', '--mode', type=str, choices=['setup', 'run'], required=True, help='the mode to run')
-    
+
     # Parse the arguments
     args = parser.parse_args()
+
+    # Set the logging level
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.ERROR)
 
     start_time = time.time()
     
@@ -112,32 +119,33 @@ def main():
 
     try:
         shutil.rmtree(output_base_dir)
-        print(f"Directory '{output_base_dir}' has been removed successfully.")
+        logging.info(f"Directory '{output_base_dir}' has been removed successfully.")
     except OSError as error:
-        print(f"Warning: {output_base_dir} : {error.strerror}")
+        logging.warning(f"Warning: {output_base_dir} : {error.strerror}")
 
     if args.mode == 'setup':
         setup(args, config_list[0])
-        print('Total setup time: ', time.time() - start_time)
+        logging.info(f'Total setup time: {time.time() - start_time}')
+        print('Setup done!')
         exit()
 
     logs={}
     # Loop through each set of arguments and execute the script
     for idx,config in enumerate(config_list):
-        print('Executing with config: ', config)
+        logging.info(f'Executing with config:    {config}')
         output_name = dict_to_str(config)
         output_dir = os.path.join(output_base_dir, output_name)
        
         # perform read balance if needed
         if config['read_balance'] == 1:
             balance_command = ['./tools/do_read_balance.sh']
-            subprocess.run(balance_command)
+            subprocess.run(balance_command, capture_output=not args.verbose)
 
         # Execute the experiment
-        print('Execution Starts!')
+        logging.info('Execution Starts!')
         exp_cmd = map(str, ['./sync_read.sh', config['num_files'], config['num_cores'], output_dir, interface])
         subprocess.run(exp_cmd, capture_output=not args.verbose, text=True, check=True)
-        print('Execution Ends!')
+        logging.info('Execution Ends!')
 
     # Cleanup
     cleanup_cmd = ['./cleanup.sh']
