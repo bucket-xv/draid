@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sudo apt update
 sudo apt install ceph ceph-volume -y
 
 # fsid=$1
@@ -18,6 +17,9 @@ sudo apt install ceph ceph-volume -y
 # # sudo apt install python3-packaging -y
 dev=$(lsblk -o NAME,TYPE | grep -B1 'lvm' | head -n 1 | awk '{print $1}')
 sudo ceph-volume lvm zap /dev/$dev --destroy
+
+sudo dmsetup remove_all      # Force-remove LVM mappings (if stuck)
+sudo systemctl restart lvm2-monitor.service  # Restart LVM service (if needed)
 # sudo wipefs -af /dev/$dev
 
 # sudo cephadm rm-cluster --force --zap-osds --fsid $fsid
