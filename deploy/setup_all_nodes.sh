@@ -30,7 +30,7 @@ setup_keys() {
 # this is to setup all nodes
 while read -u10 -r line
 do
-  setup_keys "$line"
+  # setup_keys "$line"
   # This way we still assume that draid is cloned in the home directory.
   # However, theoretically, we can clone it in any directory. Then these lines should be modified.
   ssh "$username@$line" "git clone --recurse-submodules git@github.com:bucket-xv/draid.git"
