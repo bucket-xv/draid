@@ -1,16 +1,13 @@
 import subprocess
 import os
 import json
-from tools.info import parse_pg
 import summary
 import shutil
 import numpy as np
 from tools.convert import dict_to_str
 from tools.osdmap import osd_node_mapping
-import warnings
 import time
 import argparse
-import csv
 import logging
 
 project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,7 +30,7 @@ def parse_watch(output, osd_num):
             cal_rx.append(float(lines[i]))
             cal_tx.append(float(lines[i+1]))
         except:
-            warnings.warn(f'Error parsing watch output: {lines}')
+            logging.warning(f'Error parsing watch output: {lines}')
             cal_rx.append(float(lines[i].split(' ')[0]))
             cal_tx.append(float(lines[i+1].split(' ')[0]))
     return cal_tx, cal_rx
@@ -121,7 +118,7 @@ def main():
         shutil.rmtree(output_base_dir)
         logging.info(f"Directory '{output_base_dir}' has been removed successfully.")
     except OSError as error:
-        logging.warning(f"Warning: {output_base_dir} : {error.strerror}")
+        logging.warning(f"{output_base_dir} : {error.strerror}")
 
     if args.mode == 'setup':
         setup(args, config_list[0])
