@@ -18,7 +18,7 @@ done 10< $DRAID_DIR/configs/int_ip_addrs_cli.txt
 
 # Stop and remove registry
 registry=$(tail -n 1 $DRAID_DIR/configs/int_ip_addrs_server.txt)
-ssh "$registry" "sudo docker stop registry && sudo docker rm registry"
+ssh "$registry" "sudo docker stop registry-draid && sudo docker rm registry-draid"
 
 # Remove all objects in the pool
 sudo radosgw-admin bucket rm --bucket=registry --purge-objects  # --bypass-gc
