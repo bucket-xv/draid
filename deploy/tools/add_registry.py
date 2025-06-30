@@ -20,6 +20,7 @@ def main():
     docker_config['insecure-registries'] = [f'master:5000']
     for ip in ip_addrs:
         docker_config['insecure-registries'].append(f'{ip}:5000')
+        docker_config['insecure-registries'].append(f'{ip}:5005')
     os.makedirs(os.path.dirname(docker_config_path), exist_ok=True)
     with open(docker_config_path, 'w') as f:
         json.dump(docker_config, f)
