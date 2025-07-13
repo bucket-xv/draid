@@ -39,7 +39,7 @@ def main():
                         warnings.warn(f'Error parsing line: {last_row}')
         traffic = sorted(traffic, key=lambda x: x[0])
         # Print all output traffic except the last one, as the last one don't have output traffic
-        print(f'Average image pulling latency of {"draid" if "balance" in output_dir else "baseline"}: {np.mean(latencies)}')
+        # print(f'Average image pulling latency of {"draid" if "balance" in output_dir else "baseline"}: {np.mean(latencies)}')
         print("Traffic (MB):")
         print("| " + " | ".join(f"{str(item[0]):<20}" for item in traffic[:-1]) + " |")
         print("| " + " | ".join(f"{str(item[1]/1e6):<20}" for item in traffic[:-1]) + " |")
