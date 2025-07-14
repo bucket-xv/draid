@@ -25,7 +25,7 @@ touch ceph.conf
 
 **You can find the example of the config files in `examples/configs`.**
 
-### 2. Copy the manifest to manifest.xml and execute the following command:
+### 2. Execute the following command:
 
 ```Bash
 cd deploy
@@ -59,7 +59,7 @@ You should see the output like this:
 ```Bash
 cluster:
     id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-    health: HEALTH_OK
+    health: HEALTH_OK / HEALTH_WARN
 ...
 ```
 
