@@ -4,5 +4,5 @@
 # Example: ./run.sh setup
 #          ./run.sh run
 
-cd docker
+cd ~/draid/docker
 python grid-simple.py -c single2 -e eth0 -d 2 -p 1 -m $@
